@@ -57,7 +57,6 @@ public abstract class CellLabelProvider<E> extends BaseLabelProvider<E> implemen
 						|| labelProvider instanceof ITableColorProvider || labelProvider instanceof ITableFontProvider))
 			return new TableColumnViewerLabelProvider<E>(labelProvider);
 		if (labelProvider instanceof CellLabelProvider) {
-			@SuppressWarnings("unchecked")
 			CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) labelProvider;
 			return cellLabelProvider;
 		}
@@ -97,6 +96,7 @@ public abstract class CellLabelProvider<E> extends BaseLabelProvider<E> implemen
 	 * @return the {@link String} or <code>null</code> if there is not text to
 	 *         display
 	 */
+	@Override
 	public String getToolTipText(E element) {
 		return null;
 	}

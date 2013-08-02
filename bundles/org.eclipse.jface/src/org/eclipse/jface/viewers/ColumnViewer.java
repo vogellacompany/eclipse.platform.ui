@@ -257,7 +257,8 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 					Object[] properties = getColumnProperties();
 
 					if (columnIndex < properties.length) {
-						getCellModifier().modify(findItem(element),
+						E castedElement = element;
+						getCellModifier().modify(findItem(castedElement),
 								(String) getColumnProperties()[columnIndex],
 								value);
 					}
@@ -389,8 +390,8 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 
 	/**
 	 * Apply the value of the active cell editor if one is active.
-	 * 
-	 * @since 3.3
+	 *
+	 * @since 3.11 (public - protected since 3.3)
 	 */
 	protected void applyEditorValue() {
 		if (viewerEditor != null) {

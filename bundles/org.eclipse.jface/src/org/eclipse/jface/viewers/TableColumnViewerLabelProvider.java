@@ -27,11 +27,11 @@ package org.eclipse.jface.viewers;
  */
 class TableColumnViewerLabelProvider<E> extends WrappedViewerLabelProvider<E> {
 
-	private ITableLabelProvider tableLabelProvider;
+	private ITableLabelProvider<E> tableLabelProvider;
 
-	private ITableColorProvider tableColorProvider;
+	private ITableColorProvider<E> tableColorProvider;
 
-	private ITableFontProvider tableFontProvider;
+	private ITableFontProvider<E> tableFontProvider;
 
 	/**
 	 * Create a new instance of the receiver.
@@ -46,13 +46,13 @@ class TableColumnViewerLabelProvider<E> extends WrappedViewerLabelProvider<E> {
 		super(labelProvider);
 
 		if (labelProvider instanceof ITableLabelProvider)
-			tableLabelProvider = (ITableLabelProvider) labelProvider;
+			tableLabelProvider = (ITableLabelProvider<E>) labelProvider;
 
 		if (labelProvider instanceof ITableColorProvider)
-			tableColorProvider = (ITableColorProvider) labelProvider;
+			tableColorProvider = (ITableColorProvider<E>) labelProvider;
 
 		if (labelProvider instanceof ITableFontProvider)
-			tableFontProvider = (ITableFontProvider) labelProvider;
+			tableFontProvider = (ITableFontProvider<E>) labelProvider;
 	}
 
 	@Override
