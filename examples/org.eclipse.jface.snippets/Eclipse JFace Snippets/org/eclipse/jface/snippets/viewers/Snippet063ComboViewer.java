@@ -53,8 +53,7 @@ public class Snippet063ComboViewer {
 
 		final Label l = new Label(shell, SWT.None);
 		l.setText("Choose Item:");
-		final ComboViewer<MyModel, List<MyModel>> v = new ComboViewer<MyModel, List<MyModel>>(
-				shell);
+		final ComboViewer<MyModel,List<MyModel>> v = new ComboViewer<MyModel,List<MyModel>>(shell);
 		v.setLabelProvider(new LabelProvider<MyModel>());
 		v.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
 
@@ -63,7 +62,7 @@ public class Snippet063ComboViewer {
 
 		// Select the initial Element
 		if (model.size() > 0) {
-			v.setSelection(new StructuredSelection(model.get(0)));
+			v.setSelection(new StructuredSelection<MyModel>(model.get(0)));
 		}
 	}
 
