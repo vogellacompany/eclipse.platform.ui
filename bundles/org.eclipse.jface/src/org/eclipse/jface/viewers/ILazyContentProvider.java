@@ -7,11 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
-<<<<<<< HEAD
- *     Hendrik Still <hendrik.still@gammas.de> - bug 415573
-=======
- *     Hendrik Still <hendrik.still@gammas.de> - bug 413973
->>>>>>> 6d6b20c... Bug 413973 - [Viewers] Add generics to the TreeViewer
+ *     Hendrik Still <hendrik.still@gammas.de> - bug 415573, 413973
  *******************************************************************************/
 package org.eclipse.jface.viewers;
 
