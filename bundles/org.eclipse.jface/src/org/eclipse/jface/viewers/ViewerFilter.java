@@ -12,6 +12,7 @@
 package org.eclipse.jface.viewers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A viewer filter is used by a structured viewer to extract a subset of
@@ -53,7 +54,7 @@ public abstract class ViewerFilter<E, I> {
 	 */
 	public E[] filter(Viewer<I> viewer, Object parent, E[] elements) {
 		int size = elements.length;
-		ArrayList<E> out = new ArrayList<E>(size);
+		List<E> out = new ArrayList<E>(size);
 		E element = null;
 		for (int i = 0; i < size; ++i) {
 			element = elements[i];
@@ -84,8 +85,7 @@ public abstract class ViewerFilter<E, I> {
 	 * @return the filtered elements
 	 * @since 3.2
 	 */
-	public Object[] filter(Viewer<I> viewer, TreePath<E> parentPath,
-			E[] elements) {
+	public Object[] filter(Viewer<I> viewer, TreePath<E> parentPath, E[] elements) {
 		return filter(viewer, parentPath.getLastSegment(), elements);
 	}
 

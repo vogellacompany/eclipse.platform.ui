@@ -11,6 +11,7 @@
  *												   fix in bug 163317, 151295, 167323, 167858, 184346, 187826, 201905
  *     Hendrik Still <hendrik.still@gammas.de> - bug 413973
  *     Stefan Winkler <stefan@winklerweb.net> - Bug 242231
+ *     Hendrik Still <hendrik.still@gammas.de> - bug 413973
  *******************************************************************************/
 
 package org.eclipse.jface.viewers;

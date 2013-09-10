@@ -41,5 +41,4 @@ public interface ILazyContentProvider<I> extends IContentProvider<I> {
 	 * table.
 	 */
 	public void updateElement(int index);
-
 }
