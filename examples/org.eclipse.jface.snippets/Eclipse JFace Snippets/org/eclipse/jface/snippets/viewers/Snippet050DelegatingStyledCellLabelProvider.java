@@ -82,15 +82,15 @@ public class Snippet050DelegatingStyledCellLabelProvider {
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		composite.setLayout(new GridLayout(2, true));
 
-    final DelegatingStyledCellLabelProvider<File> styledCellLP1 = new DelegatingStyledCellLabelProvider<File>(
+   		final DelegatingStyledCellLabelProvider<File> styledCellLP1 = new DelegatingStyledCellLabelProvider<File>(
 				new NameAndSizeLabelProvider());
-    final DelegatingStyledCellLabelProvider<File> styledCellLP2 = new DelegatingStyledCellLabelProvider<File>(
+    	final DelegatingStyledCellLabelProvider<File> styledCellLP2 = new DelegatingStyledCellLabelProvider<File>(
 				new ModifiedDateLabelProvider());
 		final ColumnViewer<File, FileSystemRoot> ownerDrawViewer = createViewer(
 				"Owner draw viewer:", composite, styledCellLP1, styledCellLP2); //$NON-NLS-1$
 
-    CellLabelProvider<File> normalLP1 = new NameAndSizeLabelProvider();
-    CellLabelProvider<File> normalLP2 = new ModifiedDateLabelProvider();
+    	CellLabelProvider<File> normalLP1 = new NameAndSizeLabelProvider();
+    	CellLabelProvider<File> normalLP2 = new ModifiedDateLabelProvider();
 		final ColumnViewer<File, FileSystemRoot> normalViewer = createViewer(
 				"Normal viewer:", composite, normalLP1, normalLP2); //$NON-NLS-1$
 

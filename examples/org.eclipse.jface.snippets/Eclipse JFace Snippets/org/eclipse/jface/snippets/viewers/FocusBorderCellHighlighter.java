@@ -59,8 +59,7 @@ public class FocusBorderCellHighlighter<E, I> extends
 					ViewerCell<?> focusCell = getFocusCell();
 					ViewerRow<?> row = focusCell.getViewerRow();
 
-					Assert.isNotNull(row,
-							"Internal structure invalid. Item without associated row is not possible."); //$NON-NLS-1$
+					Assert.isNotNull(row, "Internal structure invalid. Item without associated row is not possible."); //$NON-NLS-1$
 
 					ViewerCell<?> cell = row.getCell(event.index);
 

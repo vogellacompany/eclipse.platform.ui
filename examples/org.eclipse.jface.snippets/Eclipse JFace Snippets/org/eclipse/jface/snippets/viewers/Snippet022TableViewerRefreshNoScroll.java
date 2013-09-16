@@ -10,6 +10,7 @@
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 442278
+ *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;

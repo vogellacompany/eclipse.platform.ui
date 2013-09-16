@@ -86,7 +86,7 @@ public class Snippet048TreeViewerTabWithCheckboxFor3_3 {
 		column.getColumn().setWidth(200);
 		column.getColumn().setMoveable(true);
 		column.getColumn().setText("Column 1");
-    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
+   		column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

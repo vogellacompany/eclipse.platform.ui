@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2013 Tom Schindl and others.
+ * Copyright (c) 2006, 2014 Tom Schindl and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Tom Schindl - initial API and implementation
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *******************************************************************************/
 
@@ -40,8 +41,7 @@ import org.eclipse.swt.widgets.TableItem;
 public class Snippet051TableCenteredImage {
 	private static Image[] images;
 
-	private abstract class CenterImageLabelProvider extends
- OwnerDrawLabelProvider<MyModel> {
+	private abstract class CenterImageLabelProvider extends OwnerDrawLabelProvider<MyModel> {
 
 		@Override
 		protected void measure(Event event, MyModel element) {
@@ -105,7 +105,7 @@ public class Snippet051TableCenteredImage {
 				v, SWT.NONE);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Column 1");
-    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
+    	column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

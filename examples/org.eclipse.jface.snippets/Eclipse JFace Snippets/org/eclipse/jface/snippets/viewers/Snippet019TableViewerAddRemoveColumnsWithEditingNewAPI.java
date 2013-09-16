@@ -57,8 +57,7 @@ public class Snippet019TableViewerAddRemoveColumnsWithEditingNewAPI {
 		}
 	}
 
-	private class GivenNameLabelProvider extends
-			ColumnLabelProvider<Person> {
+	private class GivenNameLabelProvider extends ColumnLabelProvider<Person> {
 		@Override
 		public String getText(Person element) {
 			return element.givenname;

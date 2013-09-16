@@ -87,10 +87,10 @@ public class Snippet015CustomTooltipsForTree {
 
 		v.setContentProvider(new MyContentProvider());
 
-    CellLabelProvider<String> labelProvider = new CellLabelProvider<String>() {
+    	CellLabelProvider<String> labelProvider = new CellLabelProvider<String>() {
 
 			@Override
-      public String getToolTipText(String element) {
+      		public String getToolTipText(String element) {
 				return "Tooltip (" + element + ")";
 			}
 

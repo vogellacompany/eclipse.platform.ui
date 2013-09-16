@@ -121,8 +121,7 @@ public class Snippet049StyledCellLabelProvider {
 		return styleData;
 	}
 
-	private static class ExampleLabelProvider extends
- StyledCellLabelProvider<File> {
+	private static class ExampleLabelProvider extends StyledCellLabelProvider<File> {
 
 		private static int IMAGE_SIZE = 16;
 		private static final Image IMAGE1 = new Image(DISPLAY, DISPLAY

@@ -71,7 +71,7 @@ public class Snippet054NativeControlsInViewers {
 
 		TableViewerColumn<MyModel, List<MyModel>> column = createColumnFor(
 				viewer, "Column 1");
-    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
+    	column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

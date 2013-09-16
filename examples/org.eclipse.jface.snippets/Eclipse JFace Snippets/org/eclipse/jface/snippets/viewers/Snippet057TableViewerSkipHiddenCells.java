@@ -43,8 +43,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class Snippet057TableViewerSkipHiddenCells {
 
-	private class MyContentProvider implements
-			IStructuredContentProvider<Person, List<Person>> {
+	private class MyContentProvider implements IStructuredContentProvider<Person, List<Person>> {
 
 		@Override
 		public Person[] getElements(List<Person> inputElement) {

@@ -58,8 +58,7 @@ public class Snippet052DouleClickCellEditor {
 	}
 
 	public Snippet052DouleClickCellEditor(Shell shell) {
-		final TableViewer<MyModel, List<MyModel>> viewer = new TableViewer<MyModel, List<MyModel>>(shell, SWT.BORDER
-				| SWT.FULL_SELECTION);
+		final TableViewer<MyModel, List<MyModel>> viewer = new TableViewer<MyModel, List<MyModel>>(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		viewer.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
 
 		ColumnViewerEditorActivationStrategy<MyModel, List<MyModel>> actSupport = new ColumnViewerEditorActivationStrategy<MyModel, List<MyModel>>(

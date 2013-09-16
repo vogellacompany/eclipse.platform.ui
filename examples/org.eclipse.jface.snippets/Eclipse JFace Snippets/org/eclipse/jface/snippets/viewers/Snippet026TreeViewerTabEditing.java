@@ -47,7 +47,7 @@ import org.eclipse.swt.widgets.Shell;
 public class Snippet026TreeViewerTabEditing {
 	public Snippet026TreeViewerTabEditing(final Shell shell) {
 		Button b = new Button(shell, SWT.PUSH);
-		b.setText("Remove the second column");
+		b.setText("Remove column");
 		final TreeViewer<MyModel, MyModel> v = new TreeViewer<MyModel, MyModel>(
 				shell, SWT.BORDER | SWT.FULL_SELECTION);
 		v.getTree().setLinesVisible(true);

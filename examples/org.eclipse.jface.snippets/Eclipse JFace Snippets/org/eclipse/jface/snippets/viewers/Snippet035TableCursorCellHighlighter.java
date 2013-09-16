@@ -140,7 +140,6 @@ public class Snippet035TableCursorCellHighlighter {
 				new TableCursor(v)));
 		ColumnViewerEditorActivationStrategy<MyModel, List<MyModel>> actSupport = new ColumnViewerEditorActivationStrategy<MyModel, List<MyModel>>(
 				v) {
-
 			@Override
 			protected boolean isEditorActivationEvent(
 					ColumnViewerEditorActivationEvent event) {

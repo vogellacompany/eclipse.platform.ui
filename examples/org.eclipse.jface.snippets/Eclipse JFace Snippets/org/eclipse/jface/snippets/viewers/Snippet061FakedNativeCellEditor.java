@@ -252,7 +252,7 @@ public class Snippet061FakedNativeCellEditor {
 		TreeViewerColumn<File, File> column = null;
 
 		column = createColumnFor(viewer, SWT.NONE, "File");
-    column.setLabelProvider(new OwnerDrawLabelProvider<File>() {
+    	column.setLabelProvider(new OwnerDrawLabelProvider<File>() {
 
 			@Override
 			protected void measure(Event event, File element) {

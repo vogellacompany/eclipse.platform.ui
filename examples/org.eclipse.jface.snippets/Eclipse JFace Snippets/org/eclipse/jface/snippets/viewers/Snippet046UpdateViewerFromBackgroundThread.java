@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Tom Schindl - initial API and implementation
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *******************************************************************************/
 

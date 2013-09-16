@@ -84,7 +84,7 @@ public class Snippet056BooleanCellEditor {
 		column.setEditingSupport(new MyEditingSupport(v, v, textCellEditor));
 
 		column = createColumnFor(v, "Column 2");
-    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
+    	column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {
