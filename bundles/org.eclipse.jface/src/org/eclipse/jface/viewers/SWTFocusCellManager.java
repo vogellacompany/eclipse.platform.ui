@@ -201,7 +201,6 @@ abstract class SWTFocusCellManager<E,I> {
 						event.result = cell.getText();
 					}
 				});
-
 	}
 
 	/**
