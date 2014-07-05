@@ -90,7 +90,7 @@ public class Snippet061FakedNativeCellEditor {
 	}
 
 	public abstract class EmulatedNativeCheckBoxLabelProvider extends
-			OwnerDrawLabelProvider<File, File> {
+ OwnerDrawLabelProvider<File> {
 		private static final String CHECKED_KEY = "CHECKED";
 		private static final String UNCHECK_KEY = "UNCHECKED";
 
@@ -252,7 +252,7 @@ public class Snippet061FakedNativeCellEditor {
 		TreeViewerColumn<File, File> column = null;
 
 		column = createColumnFor(viewer, SWT.NONE, "File");
-		column.setLabelProvider(new OwnerDrawLabelProvider<File, File>() {
+    column.setLabelProvider(new OwnerDrawLabelProvider<File>() {
 
 			@Override
 			protected void measure(Event event, File element) {

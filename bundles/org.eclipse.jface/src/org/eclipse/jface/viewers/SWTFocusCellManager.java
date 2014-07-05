@@ -192,7 +192,7 @@ abstract class SWTFocusCellManager<E,I> {
 						if (viewPart == null)
 							return;
 
-						CellLabelProvider<E,I> labelProvider = viewPart
+						CellLabelProvider<E> labelProvider = viewPart
 								.getLabelProvider();
 
 						if (labelProvider == null)

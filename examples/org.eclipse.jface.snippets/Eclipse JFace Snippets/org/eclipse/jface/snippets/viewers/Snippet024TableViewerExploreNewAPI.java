@@ -84,7 +84,7 @@ public class Snippet024TableViewerExploreNewAPI {
 
 		TableViewerColumn<Person, List<Person>> column = createColumnFor(v,
 				"Givenname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -107,7 +107,7 @@ public class Snippet024TableViewerExploreNewAPI {
 		});
 
 		column = createColumnFor(v, "Surname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -131,7 +131,7 @@ public class Snippet024TableViewerExploreNewAPI {
 		});
 
 		column = createColumnFor(v, "E-Mail");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {

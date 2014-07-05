@@ -92,7 +92,7 @@ public class Snippet040TableViewerSorting {
 
 		TableViewerColumn<Person, List<Person>> column = createColumnFor(
 				viewer, "Givenname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -125,7 +125,7 @@ public class Snippet040TableViewerSorting {
 		};
 
 		column = createColumnFor(viewer, "Surname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -159,7 +159,7 @@ public class Snippet040TableViewerSorting {
 		};
 
 		column = createColumnFor(viewer, "E-Mail");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {

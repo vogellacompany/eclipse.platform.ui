@@ -135,7 +135,7 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Givenname");
 		column.getColumn().setMoveable(false);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -165,7 +165,7 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.getColumn().setText("Surname");
 		column.getColumn().setMoveable(false);
 		column.getColumn().setResizable(false);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -194,7 +194,7 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("E-Mail");
 		column.getColumn().setMoveable(false);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {

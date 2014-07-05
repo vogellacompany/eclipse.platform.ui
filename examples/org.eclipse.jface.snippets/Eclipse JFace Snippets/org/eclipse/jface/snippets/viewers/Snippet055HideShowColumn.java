@@ -82,7 +82,7 @@ public class Snippet055HideShowColumn {
 		}
 	}
 
-	class MyColumnLabelProvider extends ColumnLabelProvider<MyModel, MyModel> {
+  class MyColumnLabelProvider extends ColumnLabelProvider<MyModel> {
 
 		private String prefix;
 

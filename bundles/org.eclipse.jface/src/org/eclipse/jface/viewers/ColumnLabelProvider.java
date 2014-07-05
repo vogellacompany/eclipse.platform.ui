@@ -19,17 +19,19 @@ import org.eclipse.swt.graphics.Image;
  * The ColumnLabelProvider is the label provider for viewers
  * that have column support such as {@link TreeViewer} and
  * {@link TableViewer}
- * 
+ *
  * <p><b>This classes is intended to be subclassed</b></p>
  * @param <E> Type of an element of the model
- * @param <I> Type of the input
- * 
+ *
  * @since 3.3
  *
  */
-public class ColumnLabelProvider<E,I> extends CellLabelProvider<E,I> implements
+public class ColumnLabelProvider<E> extends CellLabelProvider<E> implements
 		IFontProvider<E>, IColorProvider<E>, ILabelProvider<E> {
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.CellLabelProvider#update(org.eclipse.jface.viewers.ViewerCell)
+	 */
 	@Override
 	public void update(ViewerCell<E> cell) {
 		E element = cell.getElement();
@@ -42,26 +44,42 @@ public class ColumnLabelProvider<E,I> extends CellLabelProvider<E,I> implements
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.IFontProvider#getFont(java.lang.Object)
+	 */
 	@Override
 	public Font getFont(E element) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.IColorProvider#getBackground(java.lang.Object)
+	 */
 	@Override
 	public Color getBackground(E element) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.IColorProvider#getForeground(java.lang.Object)
+	 */
 	@Override
 	public Color getForeground(E element) {
 		return null;
 	}
 
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
+	 */
 	@Override
 	public Image getImage(E element) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(E element) {
 		return element == null ? "" : element.toString();//$NON-NLS-1$

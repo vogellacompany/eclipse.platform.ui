@@ -40,11 +40,10 @@ import org.eclipse.swt.widgets.Event;
  * on the label.
  * </p>
  * @param <E> Type of an element of the model
- * @param <I> Type of the input
  * 
  * @since 3.4
  */
-public abstract class StyledCellLabelProvider<E,I> extends OwnerDrawLabelProvider<E,I> {
+public abstract class StyledCellLabelProvider<E> extends OwnerDrawLabelProvider<E> {
 
 	/**
 	 * Style constant for indicating that the styled colors are to be applied
@@ -69,8 +68,8 @@ public abstract class StyledCellLabelProvider<E,I> extends OwnerDrawLabelProvide
 	// reused text layout
 	private TextLayout cachedTextLayout;
 	
-	private ColumnViewer<E,I> viewer;
-	private ViewerColumn<E,I> column;
+	private ColumnViewer<E,?> viewer;
+	private ViewerColumn<E,?> column;
 	
 	private int deltaOfLastMeasure;
 
@@ -140,7 +139,7 @@ public abstract class StyledCellLabelProvider<E,I> extends OwnerDrawLabelProvide
 	 * @return the viewer on which this label provider is installed on or <code>null</code> if the
 	 * label provider is not installed.
 	 */
-	protected final ColumnViewer<E,I> getViewer() {
+	protected final ColumnViewer<E,?> getViewer() {
 		return this.viewer;
 	}
 	
@@ -151,12 +150,12 @@ public abstract class StyledCellLabelProvider<E,I> extends OwnerDrawLabelProvide
 	 * @return the column on which this label provider is installed on or <code>null</code> if the
 	 * label provider is not installed.
 	 */
-	protected final ViewerColumn<E,I> getColumn() {
+	protected final ViewerColumn<E,?> getColumn() {
 		return this.column;
 	}
 
 	@Override
-	public void initialize(ColumnViewer<E,I> viewer, ViewerColumn<E,I> column) {
+	public void initialize(ColumnViewer<E,?> viewer, ViewerColumn<E,?> column) {
 		Assert.isTrue(this.viewer == null && this.column == null, "Label provider instance already in use"); //$NON-NLS-1$
 		
 		this.viewer= viewer;

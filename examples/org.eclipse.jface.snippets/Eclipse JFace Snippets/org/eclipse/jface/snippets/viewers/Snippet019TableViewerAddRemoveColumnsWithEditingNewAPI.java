@@ -58,7 +58,7 @@ public class Snippet019TableViewerAddRemoveColumnsWithEditingNewAPI {
 	}
 
 	private class GivenNameLabelProvider extends
-			ColumnLabelProvider<Person, List<Person>> {
+			ColumnLabelProvider<Person> {
 		@Override
 		public String getText(Person element) {
 			return element.givenname;
@@ -97,7 +97,7 @@ public class Snippet019TableViewerAddRemoveColumnsWithEditingNewAPI {
 	}
 
 	private class SurNameLabelProvider extends
-			ColumnLabelProvider<Person, List<Person>> {
+			ColumnLabelProvider<Person> {
 		@Override
 		public String getText(Person element) {
 			return element.surname;
@@ -135,17 +135,17 @@ public class Snippet019TableViewerAddRemoveColumnsWithEditingNewAPI {
 	}
 
 	private class EmailLabelProvider extends
-			ColumnLabelProvider<Person, List<Person>> {
+			ColumnLabelProvider<Person> {
 		@Override
 		public String getText(Person element) {
 			return element.email;
 		}
 	}
 
-	private class EmailEditing extends EditingSupport<Person, List<Person>> {
+  private class EmailEditing extends EditingSupport<Person, List<Person>> {
 		private TextCellEditor cellEditor;
 
-		public EmailEditing(TableViewer<Person, List<Person>> viewer) {
+    public EmailEditing(TableViewer<Person, List<Person>> viewer) {
 			super(viewer);
 			cellEditor = new TextCellEditor(viewer.getTable());
 		}

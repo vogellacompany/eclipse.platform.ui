@@ -71,7 +71,7 @@ public class Snippet054NativeControlsInViewers {
 
 		TableViewerColumn<MyModel, List<MyModel>> column = createColumnFor(
 				viewer, "Column 1");
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, List<MyModel>>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {
@@ -108,8 +108,8 @@ public class Snippet054NativeControlsInViewers {
 		});
 	}
 
-	private CellLabelProvider<MyModel, List<MyModel>> createCellLabelProvider() {
-		return new CellLabelProvider<MyModel, List<MyModel>>() {
+  private CellLabelProvider<MyModel> createCellLabelProvider() {
+    return new CellLabelProvider<MyModel>() {
 
 			@Override
 			public void update(ViewerCell<MyModel> cell) {

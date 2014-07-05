@@ -148,9 +148,9 @@ public class Snippet041TableViewerAlternatingColors {
 		return column;
 	}
 
-	private ColumnLabelProvider<MyModel, List<MyModel>> createLabelProviderFor(
+  private ColumnLabelProvider<MyModel> createLabelProviderFor(
 			final TableViewer viewer) {
-		return new ColumnLabelProvider<MyModel, List<MyModel>>() {
+    return new ColumnLabelProvider<MyModel>() {
 			boolean isEvenIdx = true;
 
 			@Override

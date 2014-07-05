@@ -86,7 +86,7 @@ public class Snippet048TreeViewerTabWithCheckboxFor3_3 {
 		column.getColumn().setWidth(200);
 		column.getColumn().setMoveable(true);
 		column.getColumn().setText("Column 1");
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, MyModel>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {
@@ -121,7 +121,7 @@ public class Snippet048TreeViewerTabWithCheckboxFor3_3 {
 		column.getColumn().setWidth(200);
 		column.getColumn().setMoveable(true);
 		column.getColumn().setText("Column 2");
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, MyModel>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {
@@ -156,7 +156,7 @@ public class Snippet048TreeViewerTabWithCheckboxFor3_3 {
 		column.getColumn().setWidth(200);
 		column.getColumn().setMoveable(true);
 		column.getColumn().setText("Column 3");
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, MyModel>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

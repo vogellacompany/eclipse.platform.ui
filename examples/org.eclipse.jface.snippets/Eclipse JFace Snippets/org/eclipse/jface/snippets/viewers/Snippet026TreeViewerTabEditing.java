@@ -106,9 +106,9 @@ public class Snippet026TreeViewerTabEditing {
 		v.setInput(createModel());
 	}
 
-	private ColumnLabelProvider<MyModel, MyModel> createColumnLabelProvider(
+  private ColumnLabelProvider<MyModel> createColumnLabelProvider(
 			final String prefix) {
-		return new ColumnLabelProvider<MyModel, MyModel>() {
+    return new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

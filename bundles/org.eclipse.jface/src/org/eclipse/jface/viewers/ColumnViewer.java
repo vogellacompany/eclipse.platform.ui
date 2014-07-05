@@ -280,8 +280,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 	 * 		the label provider to use for the column
 	 * @return ViewerColumn the viewer column
 	 */
-	private ViewerColumn<E,I> createViewerColumn(Widget columnOwner,
-			CellLabelProvider<E,I> labelProvider) {
+  private ViewerColumn<E, I> createViewerColumn(Widget columnOwner, CellLabelProvider<E> labelProvider) {
 		ViewerColumn<E,I> column = new ViewerColumn<E,I>(this, columnOwner) {
 		};
 		column.setLabelProvider(labelProvider, false);
@@ -348,7 +347,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 		super.setLabelProvider(labelProvider);
 		if (labelProvider instanceof CellLabelProvider) {
 			@SuppressWarnings("unchecked")
-			CellLabelProvider<E,I> cellLabelProvider = (CellLabelProvider<E,I>) labelProvider;
+      CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) labelProvider;
 			cellLabelProvider.initialize(this, null);
 		}
 	}
@@ -357,7 +356,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 	void internalDisposeLabelProvider(IBaseLabelProvider<E> oldProvider) {
 		if (oldProvider instanceof CellLabelProvider) {
 			@SuppressWarnings("unchecked")
-			CellLabelProvider<E,I> cellLabelProvider = (CellLabelProvider<E,I>) oldProvider;
+      CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) oldProvider;
 			cellLabelProvider.dispose(this, null);
 		} else {
 			super.internalDisposeLabelProvider(oldProvider);
@@ -640,7 +639,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 	 * 
 	 * @since 3.3
 	 */
-	public CellLabelProvider<E,I> getLabelProvider(int columnIndex) {
+  public CellLabelProvider<E> getLabelProvider(int columnIndex) {
 		ViewerColumn<E,I> column = getViewerColumn(columnIndex);
 		if (column != null) {
 			return column.getLabelProvider();

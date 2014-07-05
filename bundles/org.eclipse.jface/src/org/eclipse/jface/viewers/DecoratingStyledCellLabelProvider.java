@@ -39,12 +39,11 @@ import org.eclipse.swt.graphics.Image;
  * font decoration.
  * </p>
  * @param <E> Type of an element of the model
- * @param <I> Type of the input
  * 
  * @since 3.4
  */
-public class DecoratingStyledCellLabelProvider<E,I> extends
-		DelegatingStyledCellLabelProvider<E,I> {
+public class DecoratingStyledCellLabelProvider<E> extends
+		DelegatingStyledCellLabelProvider<E> {
 
 	private ILabelDecorator<E> decorator;
 	private IDecorationContext decorationContext= DecorationContext.DEFAULT_CONTEXT;

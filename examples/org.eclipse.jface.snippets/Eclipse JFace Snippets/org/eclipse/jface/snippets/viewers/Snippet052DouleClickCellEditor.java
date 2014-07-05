@@ -118,7 +118,7 @@ public class Snippet052DouleClickCellEditor {
 		column.getColumn().setWidth(200);
 		column.getColumn().setMoveable(true);
 		column.getColumn().setText(label);
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, List<MyModel>>());
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>());
 		return column;
 	}
 

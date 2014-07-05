@@ -42,10 +42,10 @@ public class Snippet011CustomTooltips {
 		v.getTable().setHeaderVisible(true);
 		v.setContentProvider(ArrayContentProvider.getInstance(String.class));
 		ColumnViewerToolTipSupport.enableFor(v, ToolTip.NO_RECREATE);
-		CellLabelProvider<String, Object> labelProvider = new CellLabelProvider<String, Object>() {
+    CellLabelProvider<String> labelProvider = new CellLabelProvider<String>() {
 
 			@Override
-			public String getToolTipText(Object element) {
+      public String getToolTipText(String element) {
 				return "Tooltip (" + element + ")";
 			}
 

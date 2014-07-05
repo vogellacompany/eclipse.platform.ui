@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Widget;
  */
 public abstract class ViewerColumn<E,I> {
 
-	private CellLabelProvider<E,I> labelProvider;
+	private CellLabelProvider<E> labelProvider;
 
 	static String COLUMN_VIEWER_KEY = Policy.JFACE + ".columnViewer";//$NON-NLS-1$
 
@@ -78,7 +78,7 @@ public abstract class ViewerColumn<E,I> {
 	 *
 	 * @return ViewerLabelProvider
 	 */
-	/* package */CellLabelProvider<E,I> getLabelProvider() {
+	/* package */CellLabelProvider<E> getLabelProvider() {
 		return labelProvider;
 	}
 
@@ -89,7 +89,7 @@ public abstract class ViewerColumn<E,I> {
 	 * @param labelProvider
 	 *            the new {@link CellLabelProvider}
 	 */
-	public void setLabelProvider(CellLabelProvider<E,I> labelProvider) {
+	public void setLabelProvider(CellLabelProvider<E> labelProvider) {
 		setLabelProvider(labelProvider, true);
 	}
 
@@ -97,7 +97,7 @@ public abstract class ViewerColumn<E,I> {
 	 * @param labelProvider
 	 * @param registerListener
 	 */
-	/* package */void setLabelProvider(CellLabelProvider<E,I> labelProvider,
+	/* package */void setLabelProvider(CellLabelProvider<E> labelProvider,
 			boolean registerListener) {
 		if (listenerRegistered && this.labelProvider != null) {
 			this.labelProvider.removeListener(listener);
@@ -148,7 +148,7 @@ public abstract class ViewerColumn<E,I> {
 	 *            {@link ViewerCell}
 	 */
 	/* package */void refresh(ViewerCell<E> cell) {
-		CellLabelProvider<E,I> labelProvider = getLabelProvider();
+		CellLabelProvider<E> labelProvider = getLabelProvider();
 		if (labelProvider == null) {
 			Assert.isTrue(false, "Column " + cell.getColumnIndex() + //$NON-NLS-1$
 			" has no label provider."); //$NON-NLS-1$
@@ -164,7 +164,7 @@ public abstract class ViewerColumn<E,I> {
 	 */
 	protected void handleDispose() {
 		boolean disposeLabelProvider = listenerRegistered;
-		CellLabelProvider<E,I> cellLabelProvider = labelProvider;
+		CellLabelProvider<E> cellLabelProvider = labelProvider;
 		setLabelProvider(null, false);
 		if (disposeLabelProvider) {
 			cellLabelProvider.dispose(viewer, this);

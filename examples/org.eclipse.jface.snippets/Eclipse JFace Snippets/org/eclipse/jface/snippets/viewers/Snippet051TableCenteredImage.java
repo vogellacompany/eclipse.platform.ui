@@ -41,7 +41,7 @@ public class Snippet051TableCenteredImage {
 	private static Image[] images;
 
 	private abstract class CenterImageLabelProvider extends
-			OwnerDrawLabelProvider<MyModel, List<MyModel>> {
+ OwnerDrawLabelProvider<MyModel> {
 
 		@Override
 		protected void measure(Event event, MyModel element) {
@@ -105,7 +105,7 @@ public class Snippet051TableCenteredImage {
 				v, SWT.NONE);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Column 1");
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, List<MyModel>>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

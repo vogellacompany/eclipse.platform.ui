@@ -177,7 +177,7 @@ public class Snippet060TextCellEditorWithContentProposal {
 				viewer, SWT.LEFT);
 		colorColumn.getColumn().setText("Color name");
 		colorColumn.getColumn().setWidth(200);
-		colorColumn.setLabelProvider(new ColumnLabelProvider<Color, Object>());
+    colorColumn.setLabelProvider(new ColumnLabelProvider<Color>());
 		colorColumn.setEditingSupport(new ColorNameEditingSupport(viewer));
 
 		viewer.setContentProvider(new ArrayContentProvider<Color>(Color.class));

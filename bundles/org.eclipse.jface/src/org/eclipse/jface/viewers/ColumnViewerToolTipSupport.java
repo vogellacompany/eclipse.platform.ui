@@ -164,7 +164,7 @@ public class ColumnViewerToolTipSupport<E,I> extends DefaultToolTip {
 				return false;
 			}
 
-			CellLabelProvider<E,I> labelProvider = viewPart.getLabelProvider();
+			CellLabelProvider<E> labelProvider = viewPart.getLabelProvider();
 			boolean useNative = labelProvider.useNativeToolTip(element);
 
 			String text = labelProvider.getToolTipText(element);

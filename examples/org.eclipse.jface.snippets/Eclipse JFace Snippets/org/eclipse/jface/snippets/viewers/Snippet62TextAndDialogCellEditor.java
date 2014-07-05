@@ -95,7 +95,7 @@ public class Snippet62TextAndDialogCellEditor {
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Givenname");
 		column.getColumn().setMoveable(true);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -122,7 +122,7 @@ public class Snippet62TextAndDialogCellEditor {
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Surname");
 		column.getColumn().setMoveable(true);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -149,7 +149,7 @@ public class Snippet62TextAndDialogCellEditor {
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("E-Mail");
 		column.getColumn().setMoveable(true);
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 			@Override
 			public String getText(Person element) {
 				return element.email;

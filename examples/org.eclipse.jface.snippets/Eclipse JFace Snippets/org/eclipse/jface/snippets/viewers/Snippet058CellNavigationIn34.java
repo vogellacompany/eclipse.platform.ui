@@ -106,7 +106,7 @@ public class Snippet058CellNavigationIn34 {
 
 		TableViewerColumn<Person, List<Person>> column = null;
 		column = createColumnFor(v, "Givenname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -128,7 +128,7 @@ public class Snippet058CellNavigationIn34 {
 		});
 
 		column = createColumnFor(v, "Surname");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -151,7 +151,7 @@ public class Snippet058CellNavigationIn34 {
 		});
 
 		column = createColumnFor(v, "E-Mail");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {
@@ -173,7 +173,7 @@ public class Snippet058CellNavigationIn34 {
 
 		});
 		column = createColumnFor(v, "Gender");
-		column.setLabelProvider(new ColumnLabelProvider<Person, List<Person>>() {
+    column.setLabelProvider(new ColumnLabelProvider<Person>() {
 
 			@Override
 			public String getText(Person element) {

@@ -93,10 +93,10 @@ public class Snippet037FancyCustomTooltips {
 		v.setContentProvider(ArrayContentProvider.getInstance(String.class));
 		FancyToolTipSupport.enableFor(v, ToolTip.NO_RECREATE);
 
-		CellLabelProvider<String, Object> labelProvider = new CellLabelProvider<String, Object>() {
+    CellLabelProvider<String> labelProvider = new CellLabelProvider<String>() {
 
 			@Override
-			public String getToolTipText(Object element) {
+      public String getToolTipText(String element) {
 				return "<html><body>Tooltip ("
 						+ element
 						+ ")<br /><a href='http://www.bestsolution.at' target='_NEW'>www.bestsolution.at</a></body></html>";

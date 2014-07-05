@@ -36,7 +36,6 @@ import org.eclipse.swt.graphics.Image;
  * provide foreground and background color and a default font.
  * </p>
  * @param <E> Type of an element of the model
- * @param <I> Type of the input
  *
  * <p>
  * Since 3.10, {@link DelegatingStyledCellLabelProvider.IStyledLabelProvider}
@@ -46,7 +45,7 @@ import org.eclipse.swt.graphics.Image;
  * 
  * @since 3.4
  */
-public class DelegatingStyledCellLabelProvider<E,I> extends StyledCellLabelProvider<E,I> {
+public class DelegatingStyledCellLabelProvider<E> extends StyledCellLabelProvider<E> {
 
 	/**
 	 * Interface marking a label provider that provides styled text labels and
@@ -102,6 +101,11 @@ public class DelegatingStyledCellLabelProvider<E,I> extends StyledCellLabelProvi
 		this.styledLabelProvider = labelProvider;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.StyledCellLabelProvider#update(org.eclipse.jface.viewers.ViewerCell)
+	 */
 	@Override
 	public void update(ViewerCell<E> cell) {
 		E element = cell.getElement();
@@ -181,9 +185,9 @@ public class DelegatingStyledCellLabelProvider<E,I> extends StyledCellLabelProvi
 	}
 
 	@Override
-	public String getToolTipText(Object element) {
+  public String getToolTipText(E element) {
 		if (styledLabelProvider instanceof IToolTipProvider) {
-			return ((IToolTipProvider) this.styledLabelProvider).getToolTipText(element);
+      return ((IToolTipProvider<E>) this.styledLabelProvider).getToolTipText(element);
 		}
 		return super.getToolTipText(element);
 	}

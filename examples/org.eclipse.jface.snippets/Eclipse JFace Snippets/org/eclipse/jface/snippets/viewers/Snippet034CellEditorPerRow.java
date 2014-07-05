@@ -124,7 +124,7 @@ public class Snippet034CellEditorPerRow {
 		TableViewerColumn<MyModel, List<MyModel>> column = new TableViewerColumn<MyModel, List<MyModel>>(
 				v, SWT.NONE);
 		column.getColumn().setWidth(200);
-		column.setLabelProvider(new ColumnLabelProvider<MyModel, List<MyModel>>() {
+    column.setLabelProvider(new ColumnLabelProvider<MyModel>() {
 
 			@Override
 			public String getText(MyModel element) {

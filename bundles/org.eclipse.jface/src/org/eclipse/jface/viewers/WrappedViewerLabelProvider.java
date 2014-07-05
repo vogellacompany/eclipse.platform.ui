@@ -21,12 +21,11 @@ import org.eclipse.swt.graphics.Image;
  * {@link ILabelProvider}, {@link IColorProvider} and {@link IFontProvider} to
  * be mapped to a ColumnLabelProvider.
  * @param <E> Type of an element of the model
- * @param <I> Type of the input
- * 
+ *
  * @since 3.3
- * 
+ *
  */
-class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
+class WrappedViewerLabelProvider<E> extends ColumnLabelProvider<E> {
 
 	@SuppressWarnings("rawtypes")
 	private static ILabelProvider defaultLabelProvider = new LabelProvider();
@@ -44,7 +43,7 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	/**
 	 * Create a new instance of the receiver based on labelProvider.
-	 * 
+	 *
 	 * @param labelProvider
 	 */
 	public WrappedViewerLabelProvider(IBaseLabelProvider<E> labelProvider) {
@@ -54,7 +53,7 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	/**
 	 * Set the any providers for the receiver that can be adapted from provider.
-	 * 
+	 *
 	 * @param provider
 	 *            {@link Object}
 	 */
@@ -91,6 +90,11 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.jface.viewers.IFontProvider#getFont(java.lang.Object)
+	 */
 	@Override
 	public Font getFont(E element) {
 		if (fontProvider == null) {
@@ -101,6 +105,11 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.jface.viewers.IColorProvider#getBackground(java.lang.Object)
+	 */
 	@Override
 	public Color getBackground(E element) {
 		if (colorProvider == null) {
@@ -110,16 +119,31 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 		return colorProvider.getBackground(element);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
+	 */
 	@Override
 	public String getText(E element) {
 		return getLabelProvider().getText(element);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
+	 */
 	@Override
 	public Image getImage(E element) {
 		return getLabelProvider().getImage(element);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.jface.viewers.IColorProvider#getForeground(java.lang.Object)
+	 */
 	@Override
 	public Color getForeground(E element) {
 		if (colorProvider == null) {
@@ -131,7 +155,7 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	/**
 	 * Get the label provider
-	 * 
+	 *
 	 * @return {@link ILabelProvider}
 	 */
 	ILabelProvider<E> getLabelProvider() {
@@ -140,7 +164,7 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	/**
 	 * Get the color provider
-	 * 
+	 *
 	 * @return {@link IColorProvider}
 	 */
 	IColorProvider<E> getColorProvider() {
@@ -149,7 +173,7 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 
 	/**
 	 * Get the font provider
-	 * 
+	 *
 	 * @return {@link IFontProvider}.
 	 */
 	IFontProvider<E> getFontProvider() {
@@ -173,9 +197,9 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 			}
 			return;
 		}
-		
+
 		ViewerLabel label = new ViewerLabel(cell.getText(), cell.getImage());
-		
+
 		if (treePathLabelProvider != null) {
 			TreePath<E> treePath = cell.getViewerRow().getTreePath();
 
@@ -183,16 +207,16 @@ class WrappedViewerLabelProvider<E,I> extends ColumnLabelProvider<E,I> {
 			treePathLabelProvider.updateLabel(label, treePath);
 		} else if (viewerLabelProvider != null) {
 			viewerLabelProvider.updateLabel(label, element);
-		} 
-		if (!label.hasNewForeground() && colorProvider != null) 
+		}
+		if (!label.hasNewForeground() && colorProvider != null)
 			label.setForeground(getForeground(element));
-		
-		if (!label.hasNewBackground() && colorProvider != null) 
+
+		if (!label.hasNewBackground() && colorProvider != null)
 			label.setBackground(getBackground(element));
-		
-		if (!label.hasNewFont() && fontProvider != null) 
+
+		if (!label.hasNewFont() && fontProvider != null)
 			label.setFont(getFont(element));
-		
+
 		applyViewerLabel(cell, label);
 	}
 

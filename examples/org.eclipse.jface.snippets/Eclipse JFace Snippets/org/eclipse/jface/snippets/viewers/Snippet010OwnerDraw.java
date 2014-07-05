@@ -305,7 +305,7 @@ public class Snippet010OwnerDraw {
 
 		createColumns();
 
-		viewer.setLabelProvider(new OwnerDrawLabelProvider<CountryEntry, CountryEntry[]>() {
+    viewer.setLabelProvider(new OwnerDrawLabelProvider<CountryEntry>() {
 			@Override
 			protected void measure(Event event, CountryEntry element) {
 				event.setBounds(new Rectangle(event.x, event.y, element

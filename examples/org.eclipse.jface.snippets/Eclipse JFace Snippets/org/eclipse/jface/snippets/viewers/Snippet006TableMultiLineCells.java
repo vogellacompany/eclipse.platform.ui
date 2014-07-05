@@ -119,7 +119,7 @@ public class Snippet006TableMultiLineCells {
 				.getInstance(LineEntry.class));
 		createColumns();
 
-		viewer.setLabelProvider(new OwnerDrawLabelProvider<LineEntry, List<LineEntry>>() {
+    viewer.setLabelProvider(new OwnerDrawLabelProvider<LineEntry>() {
 
 			@Override
 			protected void measure(Event event, LineEntry element) {
@@ -127,7 +127,7 @@ public class Snippet006TableMultiLineCells {
 				Point size = event.gc.textExtent(line.line);
 				event.width = viewer.getTable().getColumn(event.index)
 						.getWidth();
-				int lines = size.x / event.width + 1;
+        int lines = size.x / (event.width == 0 ? 1 : event.width) + 1;
 				event.height = size.y * lines;
 			}
 

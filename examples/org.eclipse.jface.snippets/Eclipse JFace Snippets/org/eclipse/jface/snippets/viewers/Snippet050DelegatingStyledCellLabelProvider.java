@@ -82,15 +82,15 @@ public class Snippet050DelegatingStyledCellLabelProvider {
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		composite.setLayout(new GridLayout(2, true));
 
-		final DelegatingStyledCellLabelProvider<File, FileSystemRoot> styledCellLP1 = new DelegatingStyledCellLabelProvider<File, FileSystemRoot>(
+    final DelegatingStyledCellLabelProvider<File> styledCellLP1 = new DelegatingStyledCellLabelProvider<File>(
 				new NameAndSizeLabelProvider());
-		final DelegatingStyledCellLabelProvider<File, FileSystemRoot> styledCellLP2 = new DelegatingStyledCellLabelProvider<File, FileSystemRoot>(
+    final DelegatingStyledCellLabelProvider<File> styledCellLP2 = new DelegatingStyledCellLabelProvider<File>(
 				new ModifiedDateLabelProvider());
 		final ColumnViewer<File, FileSystemRoot> ownerDrawViewer = createViewer(
 				"Owner draw viewer:", composite, styledCellLP1, styledCellLP2); //$NON-NLS-1$
 
-		CellLabelProvider<File, FileSystemRoot> normalLP1 = new NameAndSizeLabelProvider();
-		CellLabelProvider<File, FileSystemRoot> normalLP2 = new ModifiedDateLabelProvider();
+    CellLabelProvider<File> normalLP1 = new NameAndSizeLabelProvider();
+    CellLabelProvider<File> normalLP2 = new ModifiedDateLabelProvider();
 		final ColumnViewer<File, FileSystemRoot> normalViewer = createViewer(
 				"Normal viewer:", composite, normalLP1, normalLP2); //$NON-NLS-1$
 
@@ -144,8 +144,7 @@ public class Snippet050DelegatingStyledCellLabelProvider {
 
 	private ColumnViewer<File, FileSystemRoot> createViewer(String description,
 			Composite parent,
-			CellLabelProvider<File, FileSystemRoot> labelProvider1,
-			CellLabelProvider<File, FileSystemRoot> labelProvider2) {
+ CellLabelProvider<File> labelProvider1, CellLabelProvider<File> labelProvider2) {
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
@@ -185,8 +184,7 @@ public class Snippet050DelegatingStyledCellLabelProvider {
 	/**
 	 * A simple label provider
 	 */
-	private static class NameAndSizeLabelProvider extends
-			ColumnLabelProvider<File, FileSystemRoot> implements
+  private static class NameAndSizeLabelProvider extends ColumnLabelProvider<File> implements
 			IStyledLabelProvider<File> {
 
 		private static int IMAGE_SIZE = 16;
@@ -233,8 +231,7 @@ public class Snippet050DelegatingStyledCellLabelProvider {
 		}
 	}
 
-	private static class ModifiedDateLabelProvider extends
-			ColumnLabelProvider<File, FileSystemRoot> implements
+  private static class ModifiedDateLabelProvider extends ColumnLabelProvider<File> implements
 			IStyledLabelProvider<File> {
 		@Override
 		public String getText(File element) {
