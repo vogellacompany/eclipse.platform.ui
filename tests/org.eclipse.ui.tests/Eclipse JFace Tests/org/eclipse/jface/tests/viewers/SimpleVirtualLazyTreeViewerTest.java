@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2011 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 118919
  *******************************************************************************/
 package org.eclipse.jface.tests.viewers;
 
@@ -52,8 +53,7 @@ public class SimpleVirtualLazyTreeViewerTest extends ViewerTestCase {
 		@Override
 		public void updateElement(String parent, int index) {
 			updateElementCallCount++;
-			String parentString = parent;
-			String childElement = parentString + "-" + (index + offset);
+			String childElement = parent + "-" + (index + offset);
 			if (printCallbacks)
 				System.out.println("updateElement called for " + parent
 						+ " at " + index);
@@ -210,10 +210,9 @@ public class SimpleVirtualLazyTreeViewerTest extends ViewerTestCase {
 		offset = 1;
 		treeViewer.remove(treeViewer.getInput(), 3);
 		assertEquals(NUM_ROOTS - 1, treeViewer.getTree().getItemCount());
-		treeViewer.setSelection(new StructuredSelection(new Object[] { "R-0",
+		treeViewer.setSelection(new StructuredSelection<Object>(new Object[] { "R-0",
 				"R-1" }));
-		assertEquals(2,
-				((IStructuredSelection) treeViewer.getSelection()).size());
+		assertEquals(2, ((IStructuredSelection<?>) treeViewer.getSelection()).size());
 		processEvents();
 		assertTrue("expected less than " + (NUM_ROOTS / 2) + " but got "
 				+ updateElementCallCount,
@@ -225,8 +224,7 @@ public class SimpleVirtualLazyTreeViewerTest extends ViewerTestCase {
 		treeViewer.remove(treeViewer.getInput(), 1);
 		assertEquals(NUM_ROOTS - 2, treeViewer.getTree().getItemCount());
 		processEvents();
-		assertEquals(1,
-				((IStructuredSelection) treeViewer.getSelection()).size());
+		assertEquals(1, ((IStructuredSelection<?>) treeViewer.getSelection()).size());
 		assertEquals(1, updateElementCallCount);
 		// printCallbacks = false;
 	}
