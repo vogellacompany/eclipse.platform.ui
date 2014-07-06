@@ -191,7 +191,7 @@ public class StyledCellLabelProviderTests {
 	}
 
 	private void createColumn(TableViewer<File, Object> viewer, int style,
-			CellLabelProvider<File, Object> labelProvider) {
+			CellLabelProvider<File> labelProvider) {
 		column = new TableViewerColumn<File, Object>(viewer, style);
 		column.getColumn().setWidth(200);
 		column.getColumn().setText("Column");

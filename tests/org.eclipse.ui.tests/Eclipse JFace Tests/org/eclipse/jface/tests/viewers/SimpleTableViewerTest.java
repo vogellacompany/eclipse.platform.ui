@@ -41,6 +41,7 @@ public class SimpleTableViewerTest extends ViewerTestCase {
 		super(name);
 	}
 
+	@Override
 	protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
 		tableViewer = new TableViewer<TestElement,TestElement>(parent);
 		tableViewer.setContentProvider(new TestModelContentProvider());
@@ -50,24 +51,30 @@ public class SimpleTableViewerTest extends ViewerTestCase {
 	public void testNullLabel() {
 		tableViewer.setLabelProvider(new ITableLabelProvider<TestElement>() {
 
+			@Override
 			public Image getColumnImage(TestElement element, int columnIndex) {
 				return null;
 			}
 
+			@Override
 			public String getColumnText(TestElement element, int columnIndex) {
 				return null;
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 			}
 
+			@Override
 			public void dispose() {
 			}
 
+			@Override
 			public boolean isLabelProperty(TestElement element, String property) {
 				return false;
 			}
 
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 			}
 		});
@@ -109,14 +116,17 @@ public class SimpleTableViewerTest extends ViewerTestCase {
 		final int[] disposeCounter = { 0 };
 		final int[] listenerCounter = { 0 };
 		tableViewer.setLabelProvider(new LabelProvider<TestElement>() {
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				listenerCounter[0]++;
 				super.addListener(listener);
 			}
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				super.removeListener(listener);
 				listenerCounter[0]--;
 			}
+			@Override
 			public void dispose() {
 				disposeCounter[0]++;
 			}
@@ -132,15 +142,18 @@ public class SimpleTableViewerTest extends ViewerTestCase {
 		TableViewerColumn<TestElement,TestElement> tvc = new TableViewerColumn<TestElement,TestElement>(tableViewer, SWT.NONE);
 		final int[] disposeCounter = { 0 };
 		final int[] listenerCounter = { 0 };
-		tvc.setLabelProvider(new ColumnLabelProvider<TestElement,TestElement>() {
+		tvc.setLabelProvider(new ColumnLabelProvider<TestElement>() {
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				listenerCounter[0]++;
 				super.addListener(listener);
 			}
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				super.removeListener(listener);
 				listenerCounter[0]--;
 			}
+			@Override
 			public void dispose() {
 				disposeCounter[0]++;
 			}
@@ -152,7 +165,8 @@ public class SimpleTableViewerTest extends ViewerTestCase {
 
 	public void testCellLabelProviderDispose() {
 		final int[] disposeCounter = { 0 };
-		tableViewer.setLabelProvider(new ColumnLabelProvider<TestElement,TestElement>() {
+		tableViewer.setLabelProvider(new ColumnLabelProvider<TestElement>() {
+			@Override
 			public void dispose() {
 				disposeCounter[0]++;
 			}
