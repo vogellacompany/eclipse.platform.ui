@@ -113,12 +113,11 @@ public class Snippet005TreeCustomMenu {
 
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				IStructuredSelection selection = (IStructuredSelection) v
+				IStructuredSelection<MyModel> selection = (IStructuredSelection<MyModel>) v
 						.getSelection();
 				if (!selection.isEmpty()) {
 					a.setText("Action for "
-							+ ((MyModel) selection.getFirstElement())
-									.toString());
+							+ (selection.getFirstElement()).toString());
 					mgr.add(a);
 				}
 			}
