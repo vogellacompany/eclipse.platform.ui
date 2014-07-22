@@ -184,8 +184,7 @@ import org.osgi.service.event.EventHandler;
 /**
  * A collection of views and editors in a workbench.
  */
-public class WorkbenchPage extends CompatibleWorkbenchPage implements
-        IWorkbenchPage {
+public class WorkbenchPage implements IWorkbenchPage {
 
 	private static final String ATT_AGGREGATE_WORKING_SET_ID = "aggregateWorkingSetId"; //$NON-NLS-1$
 
@@ -3442,6 +3441,7 @@ public class WorkbenchPage extends CompatibleWorkbenchPage implements
 
 		// reset complete
 		legacyWindow.firePerspectiveChanged(this, desc, CHANGE_RESET_COMPLETE);
+		UIEvents.publishEvent(UIEvents.UILifeCycle.PERSPECTIVE_RESET, persp);
 	}
 
 	private void initActionSetListener() {

@@ -225,7 +225,10 @@ public class TrimStack {
 		if (trimStackTB == null || trimStackTB.isDisposed() || minimizedElement.getWidget() == null)
 			return;
 
-		MUIElement changedElement = (MUIElement) event.getProperty(UIEvents.EventTags.ELEMENT);
+		Object changedElement = event.getProperty(UIEvents.EventTags.ELEMENT);
+		if (!(changedElement instanceof MUIElement)) {
+			return;
+		}
 
 		String key;
 		if (UIEvents.isREMOVE(event)) {
@@ -237,11 +240,11 @@ public class TrimStack {
 		}
 
 		if (key.equals(IPresentationEngine.OVERRIDE_ICON_IMAGE_KEY)) {
-			ToolItem toolItem = getChangedToolItem(changedElement);
+			ToolItem toolItem = getChangedToolItem((MUIElement) changedElement);
 			if (toolItem != null)
 				toolItem.setImage(getImage((MUILabel) toolItem.getData()));
 		} else if (key.equals(IPresentationEngine.OVERRIDE_TITLE_TOOL_TIP_KEY)) {
-			ToolItem toolItem = getChangedToolItem(changedElement);
+			ToolItem toolItem = getChangedToolItem((MUIElement) changedElement);
 			if (toolItem != null)
 				toolItem.setToolTipText(getLabelText((MUILabel) toolItem.getData()));
 		}
@@ -877,31 +880,37 @@ public class TrimStack {
 			MGenericStack<?> theStack = (MGenericStack<?>) minimizedElement;
 
 			// check to see if this stack has any valid elements
-			boolean check = false;
+			boolean hasRenderedElements = false;
 			for (MUIElement stackElement : theStack.getChildren()) {
 				if (stackElement.isToBeRendered()) {
-					check = true;
+					hasRenderedElements = true;
 					break;
 				}
 			}
 
-			if (!check) {
+			if (hasRenderedElements) {
+				for (MUIElement stackElement : theStack.getChildren()) {
+					if (!stackElement.isToBeRendered()) {
+						continue;
+					}
+
+					MUILabel labelElement = getLabelElement(stackElement);
+					ToolItem newItem = new ToolItem(trimStackTB, SWT.CHECK);
+					newItem.setData(labelElement);
+					newItem.setImage(getImage(labelElement));
+					newItem.setToolTipText(getLabelText(labelElement));
+					newItem.addSelectionListener(toolItemSelectionListener);
+				}
+			} else if (theStack.getTags().contains(IPresentationEngine.NO_AUTO_COLLAPSE)) {
+				// OK to be empty and still minimized
+				ToolItem ti = new ToolItem(trimStackTB, SWT.CHECK);
+				ti.setToolTipText(Messages.TrimStack_EmptyStackTooltip);
+				ti.setImage(getLayoutImage());
+				ti.addSelectionListener(toolItemSelectionListener);
+			} else {
 				// doesn't have any children that's showing, place it back in the presentation
 				restoreStack();
 				return;
-			}
-
-			for (MUIElement stackElement : theStack.getChildren()) {
-				if (!stackElement.isToBeRendered()) {
-					continue;
-				}
-
-				MUILabel labelElement = getLabelElement(stackElement);
-				ToolItem newItem = new ToolItem(trimStackTB, SWT.CHECK);
-				newItem.setData(labelElement);
-				newItem.setImage(getImage(labelElement));
-				newItem.setToolTipText(getLabelText(labelElement));
-				newItem.addSelectionListener(toolItemSelectionListener);
 			}
 		}
 
