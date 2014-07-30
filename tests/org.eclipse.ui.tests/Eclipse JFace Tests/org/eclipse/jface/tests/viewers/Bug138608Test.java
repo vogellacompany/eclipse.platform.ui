@@ -22,11 +22,16 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Description of the bug: Initially tree is populated by way shown below and is
- * completely expanded.
- *
- * root |-a |-c |-d |-b |-c
- *
+ * Description of the bug:
+ * Initially tree is populated by way shown below and is completely expanded.
+ * 
+ * root
+ *     |-a
+ *        |-c
+ *        |-d
+ *     |-b
+ *        |-c
+ * 
  * Then 'd' model element is added as child of 'b' in model and through
  * add(parent,child) method of TreeViewer to tree.
  *
@@ -153,7 +158,6 @@ public class Bug138608Test extends ViewerTestCase {
 		@Override
 		public void inputChanged(Viewer<? extends TreeNode<String>> viewer,
 				TreeNode<String> oldInput, TreeNode<String> newInput) {
-			// TODO Auto-generated method stub
 		}
 
 	}

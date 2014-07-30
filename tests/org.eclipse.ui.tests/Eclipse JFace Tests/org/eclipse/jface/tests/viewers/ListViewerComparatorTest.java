@@ -30,9 +30,7 @@ public class ListViewerComparatorTest extends ViewerComparatorTest {
 		super(name);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.tests.viewers.ViewerTestCase#createViewer(org.eclipse.swt.widgets.Composite)
-	 */
+	@Override
 	protected StructuredViewer createViewer(Composite parent) {
         ListViewer<Object,Object> viewer = new ListViewer<Object,Object>(parent);
         viewer.setContentProvider(new TeamModelContentProvider());
@@ -71,6 +69,7 @@ public class ListViewerComparatorTest extends ViewerComparatorTest {
 		}
 	}
 
+	@Override
 	protected void setInput() {
 		comparatorTestViewer.setInput(team1);
 	}

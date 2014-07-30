@@ -37,19 +37,22 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 
         public boolean fExtended = false;
 
-        public String getText(TestElement element) {
+        @Override
+		public String getText(TestElement element) {
+            if (fExtended)
+                return providedString(element);
+            return element.toString();
+		}
+
+        @Override
+		public String getColumnText(TestElement element, int index) {
             if (fExtended)
                 return providedString(element);
             return element.toString();
         }
 
-        public String getColumnText(TestElement element, int index) {
-            if (fExtended)
-                return providedString(element);
-            return element.toString();
-        }
-
-        public Image getColumnImage(TestElement element, int columnIndex) {
+        @Override
+		public Image getColumnImage(TestElement element, int columnIndex) {
             return null;
         }
     }
@@ -58,8 +61,9 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 			super(name);
 		}
 
-	    protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
-	    	TableViewer viewer = new CheckboxTableViewer(parent);
+	    @Override
+		protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
+			TableViewer<TestElement, TestElement> viewer = new CheckboxTableViewer<TestElement, TestElement>(parent);
 
 	        Table table = viewer.getTable();
 	        table.setLinesVisible(true);
@@ -87,14 +91,15 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 	        return viewer;
 	    }
 
+		@Override
 		public void testViewerColumn() {
-	    	assertNull(getViewerColumn((TableViewer) fViewer, -1));
-			assertNotNull(getViewerColumn((TableViewer) fViewer, 0));
-			assertNotNull(getViewerColumn((TableViewer) fViewer, 1));
+			assertNull(getViewerColumn((TableViewer<TestElement, TestElement>) fViewer, -1));
+			assertNotNull(getViewerColumn((TableViewer<TestElement, TestElement>) fViewer, 0));
+			assertNotNull(getViewerColumn((TableViewer<TestElement, TestElement>) fViewer, 1));
 				//due to CheckboxTableViewer.createTable, there is an
 				//extra column, so the next test looks for column 3
 				//instead of 2 -- a result of using deprecated code
-			assertNull(getViewerColumn((TableViewer) fViewer, 3));
+			assertNull(getViewerColumn((TableViewer<TestElement, TestElement>) fViewer, 3));
 	    }
     }
 
@@ -103,8 +108,9 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 			super(name);
 		}
 
-	    protected StructuredViewer createViewer(Composite parent) {
-	    	TableViewer viewer = CheckboxTableViewer.newCheckList(parent, SWT.NONE);
+	    @Override
+		protected StructuredViewer<TestElement, TestElement> createViewer(Composite parent) {
+			TableViewer<TestElement, TestElement> viewer = CheckboxTableViewer.newCheckList(parent, SWT.NONE);
 
 	        Table table = viewer.getTable();
 	        table.setLinesVisible(true);
@@ -138,7 +144,8 @@ public class CheckboxTableViewerTest extends TableViewerTest {
         super(name);
     }
 
-    protected StructuredViewer createViewer(Composite parent) {
+    @Override
+	protected StructuredViewer<TestElement, TestElement> createViewer(Composite parent) {
         Table table = new Table(parent, SWT.CHECK | SWT.BORDER);
         table.setLinesVisible(true);
         TableLayout layout = new TableLayout();
@@ -160,7 +167,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
             columns[i] = tc;
         }
 
-        TableViewer viewer = new CheckboxTableViewer(table);
+		TableViewer<TestElement, TestElement> viewer = new CheckboxTableViewer<TestElement, TestElement>(table);
         viewer.setContentProvider(new TestModelContentProvider());
         viewer.setLabelProvider(new TableTestLabelProvider());
         return viewer;
@@ -171,7 +178,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testCheckAllElements() {
-        CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
         ctv.setAllChecked(true);
         assertTrue(ctv.getChecked(fRootElement.getFirstChild()));
         assertTrue(ctv.getChecked(fRootElement.getLastChild()));
@@ -181,7 +188,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testGrayAllElements() {
-        CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
         ctv.setAllGrayed(true);
         assertTrue(ctv.getGrayed(fRootElement.getFirstChild()));
         assertTrue(ctv.getGrayed(fRootElement.getLastChild()));
@@ -191,7 +198,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testGrayed() {
-        CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
         TestElement element = fRootElement.getFirstChild();
 
         assertTrue(ctv.getGrayedElements().length == 0);
@@ -209,7 +216,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testGrayedElements() {
-        CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
         TestElement first = fRootElement.getFirstChild();
         TestElement last = fRootElement.getLastChild();
 
@@ -233,14 +240,14 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 
     public void testWithoutCheckProvider() {
     	//Check that without a provider, no exceptions are thrown
-    	CheckboxTableViewer ctv = (CheckboxTableViewer)fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
     	ctv.refresh();
     }
 
     public void testCheckProviderInvoked() {
     	//Check that a refresh successfully causes the provider's
     	//setChecked and setGrayed methods to be invoked.
-    	CheckboxTableViewer ctv = (CheckboxTableViewer)fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	TestMethodsInvokedCheckStateProvider provider = new TestMethodsInvokedCheckStateProvider();
 
@@ -271,10 +278,12 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     private void testSpecificState(final boolean isChecked, final boolean isGrayed) {
-    	CheckboxTableViewer ctv = (CheckboxTableViewer)fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	ctv.setCheckStateProvider(new ICheckStateProvider() {
+			@Override
 			public boolean isChecked(Object element)	{	return isChecked;	}
+			@Override
 			public boolean isGrayed(Object element) 	{	return isGrayed;	}
     	});
 
@@ -285,7 +294,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testSetCheckProviderRefreshesItems() {
-    	CheckboxTableViewer ctv = (CheckboxTableViewer)fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	//First provider
     	//Should cause visible items' check state to adhere to provider
@@ -306,7 +315,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testCheckProviderWithSorter() {
-    	CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	ctv.setSorter(new CheckStateProviderTestsUtil.Sorter());
 
@@ -319,7 +328,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     }
 
     public void testCheckProviderWithFilter() {
-    	CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	final CheckStateProviderTestsUtil.Filter filter = new CheckStateProviderTestsUtil.Filter();
 		ctv.addFilter(filter);
@@ -333,19 +342,19 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     	checkAllStates("Testing checkbox state with a sorter", ctv, 0);
 
     	//Check that the provider is only invoked on elements which pass the filter
-    	for (Iterator i = checkStateProvider.isCheckedInvokedOn.iterator(); i.hasNext();) {
+		for (Iterator<?> i = checkStateProvider.isCheckedInvokedOn.iterator(); i.hasNext();) {
 			TestElement element = (TestElement) i.next();
 			assertTrue("The check provider should not be invoked on elements which did not get through the filter", filter.select(ctv, null, element));
 		}
 
-    	for (Iterator i = checkStateProvider.isGrayedInvokedOn.iterator(); i.hasNext();) {
+		for (Iterator<?> i = checkStateProvider.isGrayedInvokedOn.iterator(); i.hasNext();) {
 			TestElement element = (TestElement) i.next();
 			assertTrue("The check provider should not be invoked on elements which did not get through the filter", filter.select(ctv, null, element));
 		}
     }
 
     public void testCheckProviderUpdate() {
-    	CheckboxTableViewer ctv = (CheckboxTableViewer)fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
     	//First provider
     	//Should cause visible items' check state to adhere to provider
@@ -362,7 +371,7 @@ public class CheckboxTableViewerTest extends TableViewerTest {
     	checkAllStates("Testing checkbox state after refresh", ctv, 1);
     }
 
-	private void checkAllStates(String comment, CheckboxTableViewer ctv, int shift) {
+	private void checkAllStates(String comment, CheckboxTableViewer<TestElement, TestElement> ctv, int shift) {
 		TableItem[] items = ctv.getTable().getItems();
 
     	//Check that actual states were set properly
@@ -382,7 +391,8 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 	 * @param viewer	the viewer <code>te</code> is in.
 	 * @param shift 	the shift parameter being used
 	 */
-	private void checkState(String comment, TestElement te, CheckboxTableViewer viewer, int shift) {
+	private void checkState(String comment, TestElement te, CheckboxTableViewer<TestElement, TestElement> viewer,
+			int shift) {
 		assertEquals(comment, CheckStateProviderTestsUtil.shouldBeChecked(te, shift), viewer.getChecked(te));
 		assertEquals(comment, CheckStateProviderTestsUtil.shouldBeGrayed(te, shift), viewer.getGrayed(te));
 	}
@@ -400,11 +410,11 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 	}
 
 	public void testGetCheckedElements() {
-		CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
 		TestElement[] children = fRootElement.getChildren();
 
-		List checked = new ArrayList((children.length + 1) / 2);
+		List<TestElement> checked = new ArrayList<TestElement>((children.length + 1) / 2);
 
 		for (int i = 0; i < children.length; i+=2) {
 			ctv.setChecked(children[i], true);
@@ -421,11 +431,11 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 	}
 
 	public void testSetCheckedElements() {
-		CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
 		TestElement[] children = fRootElement.getChildren();
 
-		List toCheck = new ArrayList((children.length + 1) / 2);
+		List<TestElement> toCheck = new ArrayList<TestElement>((children.length + 1) / 2);
 
 		for (int i = 0; i < children.length; i+=2) {
 			toCheck.add(children[i]);
@@ -443,11 +453,11 @@ public class CheckboxTableViewerTest extends TableViewerTest {
 	}
 
 	public void testSetGrayedElements() {
-		CheckboxTableViewer ctv = (CheckboxTableViewer) fViewer;
+		CheckboxTableViewer<TestElement, TestElement> ctv = (CheckboxTableViewer<TestElement, TestElement>) fViewer;
 
 		TestElement[] children = fRootElement.getChildren();
 
-		List toGray = new ArrayList((children.length + 1) / 2);
+		List<TestElement> toGray = new ArrayList<TestElement>((children.length + 1) / 2);
 
 		for (int i = 0; i < children.length; i+=2) {
 			toGray.add(children[i]);

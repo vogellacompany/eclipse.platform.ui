@@ -31,19 +31,22 @@ public class CheckboxTreeViewerTest extends TreeViewerTest {
 
         public boolean fExtended = false;
 
-        public String getText(TestElement element) {
+        @Override
+		public String getText(TestElement element) {
+            if (fExtended)
+                return providedString(element);
+			return element.toString();
+        }
+
+        @Override
+		public String getColumnText(TestElement element, int index) {
             if (fExtended)
                 return providedString(element);
             return element.toString();
         }
 
-        public String getColumnText(TestElement element, int index) {
-            if (fExtended)
-                return providedString((TestElement) element);
-            return element.toString();
-        }
-
-        public Image getColumnImage(TestElement element, int columnIndex) {
+        @Override
+		public Image getColumnImage(TestElement element, int columnIndex) {
             return null;
         }
     }
@@ -52,7 +55,8 @@ public class CheckboxTreeViewerTest extends TreeViewerTest {
         super(name);
     }
 
-    protected StructuredViewer createViewer(Composite parent) {
+    @Override
+	protected StructuredViewer createViewer(Composite parent) {
         fTreeViewer = new CheckboxTreeViewer(parent);
         fTreeViewer.setContentProvider(new TestModelContentProvider());
         return fTreeViewer;
@@ -191,7 +195,9 @@ public class CheckboxTreeViewerTest extends TreeViewerTest {
     	CheckboxTreeViewer ctv = (CheckboxTreeViewer)fViewer;
 
     	ctv.setCheckStateProvider(new ICheckStateProvider() {
+			@Override
 			public boolean isChecked(Object element)	{	return isChecked;	}
+			@Override
 			public boolean isGrayed(Object element) 	{	return isGrayed;	}
     	});
 

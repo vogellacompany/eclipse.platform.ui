@@ -18,9 +18,6 @@ public class TestLabelProvider<E> extends LabelProvider<E> {
 
     static Image fgImage = null;
 
-    /**
-     *
-     */
     public static Image getImage() {
         if (fgImage == null)
             fgImage = ImageDescriptor.createFromFile(TestLabelProvider.class,
@@ -28,11 +25,13 @@ public class TestLabelProvider<E> extends LabelProvider<E> {
         return fgImage;
     }
 
-    public Image getImage(E element) {
+    @Override
+	public Image getImage(E element) {
         return getImage();
     }
 
-    public String getText(E element) {
+    @Override
+	public String getText(E element) {
         String label = element.toString();
         return label + " <rendered>";
     }

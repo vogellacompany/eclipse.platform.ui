@@ -10,7 +10,7 @@
  *******************************************************************************/
 
 package org.eclipse.jface.tests.viewers;
-
+ 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;

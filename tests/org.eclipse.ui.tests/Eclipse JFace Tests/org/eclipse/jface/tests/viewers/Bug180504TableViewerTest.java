@@ -41,6 +41,7 @@ public class Bug180504TableViewerTest extends ViewerTestCase {
 		super(name);
 	}
 
+	@Override
 	protected StructuredViewer createViewer(Composite parent) {
 		tableViewer = new TableViewer<String,List<String>>(parent, SWT.FULL_SELECTION);
 		tableViewer.setContentProvider(new ArrayContentProvider<String>(String.class));
@@ -48,14 +49,17 @@ public class Bug180504TableViewerTest extends ViewerTestCase {
 				tableViewer.getTable()) });
 		tableViewer.setColumnProperties(new String[] { "0" });
 		tableViewer.setCellModifier(new ICellModifier() {
+			@Override
 			public boolean canModify(Object element, String property) {
 				return true;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				return "";
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				tableViewer.getControl().dispose();
 			}
@@ -66,11 +70,13 @@ public class Bug180504TableViewerTest extends ViewerTestCase {
 		return tableViewer;
 	}
 
+	@Override
 	protected void setUpModel() {
 		// don't do anything here - we are not using the normal fModel and
 		// fRootElement
 	}
 
+	@Override
 	protected void setInput() {
 		List<String> ar = new ArrayList<String>(100);
 //		String[] ar = new String[100];
