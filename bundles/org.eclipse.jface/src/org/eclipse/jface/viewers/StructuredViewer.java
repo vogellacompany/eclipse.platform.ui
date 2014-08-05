@@ -1055,7 +1055,27 @@ public abstract class StructuredViewer<E,I> extends ContentViewer<E,I> implement
 			return StructuredSelection.EMPTY;
 		}
 		List<E> list = getSelectionFromWidget();
-		return new StructuredSelection(list, comparer);
+		return new StructuredSelection<E>(list, comparer);
+	}
+
+	/**
+	 * Returns the <code>IStructuredSelection</code> of this viewer.
+	 *
+	 * @return IStructuredSelection
+	 * @throws ClassCastException
+	 *             if the selection of the viewer is not an instance of
+	 *             IStructuredSelection
+	 * @since 3.11
+	 */
+	public IStructuredSelection<E> getStructuredSelection()
+			throws ClassCastException {
+		ISelection selection = getSelection();
+		if (selection instanceof IStructuredSelection) {
+			return (IStructuredSelection<E>) selection;
+
+		}
+		throw new ClassCastException(
+				"StructuredViewer should return an instance of IStructuredSelection from its getSelection() method. "); //$NON-NLS-1$
 	}
 
 	/**
@@ -1137,7 +1157,7 @@ public abstract class StructuredViewer<E,I> extends ContentViewer<E,I> implement
 			// For details, see bug 90161 [Navigator] DefaultSelecting folders shouldn't always expand first one
 			ISelection selection;
 			if (event.item != null && event.item.getData() != null) {
-				selection = new StructuredSelection(event.item.getData());
+				selection = new StructuredSelection<E>((E[]) event.item.getData());
 			}
 			else {
 				selection = getSelection();
@@ -1770,7 +1790,7 @@ public abstract class StructuredViewer<E,I> extends ContentViewer<E,I> implement
 	protected void setSelectionToWidget(ISelection selection, boolean reveal) {
 		if (selection instanceof IStructuredSelection) {
 			@SuppressWarnings("unchecked")
-			List<E> selectedElements = ((IStructuredSelection) selection).toList();
+			List<E> selectedElements = ((IStructuredSelection<E>) selection).toList();
 			setSelectionToWidget(selectedElements, reveal);
 		} else {
 			setSelectionToWidget((List<E>) null, reveal);
