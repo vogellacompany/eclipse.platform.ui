@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Stefan Winkler <stefan@winklerweb.net> - Bug 242231
  ******************************************************************************/
 
 package org.eclipse.jface.tests.viewers;

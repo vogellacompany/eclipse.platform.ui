@@ -10,6 +10,7 @@
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation; bug 153993
  *												   fix in bug 163317, 151295, 167323, 167858, 184346, 187826, 201905
  *     Hendrik Still <hendrik.still@gammas.de> - bug 413973
+ *     Stefan Winkler <stefan@winklerweb.net> - Bug 242231
  *******************************************************************************/
 
 package org.eclipse.jface.viewers;
@@ -346,8 +347,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 		// columns
 		super.setLabelProvider(labelProvider);
 		if (labelProvider instanceof CellLabelProvider) {
-			@SuppressWarnings("unchecked")
-      CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) labelProvider;
+			CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) labelProvider;
 			cellLabelProvider.initialize(this, null);
 		}
 	}
@@ -355,8 +355,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 	@Override
 	void internalDisposeLabelProvider(IBaseLabelProvider<E> oldProvider) {
 		if (oldProvider instanceof CellLabelProvider) {
-			@SuppressWarnings("unchecked")
-      CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) oldProvider;
+			CellLabelProvider<E> cellLabelProvider = (CellLabelProvider<E>) oldProvider;
 			cellLabelProvider.dispose(this, null);
 		} else {
 			super.internalDisposeLabelProvider(oldProvider);
@@ -414,7 +413,7 @@ public abstract class ColumnViewer<E,I> extends StructuredViewer<E,I> {
 				getControl().setRedraw(false);
 				// Set the selection at first because in Tree's
 				// the element might not be materialized
-				setSelection(new StructuredSelection(element), true);
+				setSelection(new StructuredSelection<E>(element), true);
 
 				Widget item = findItem(element);
 				if (item != null) {
