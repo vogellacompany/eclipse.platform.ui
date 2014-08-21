@@ -3080,10 +3080,10 @@ public abstract class AbstractTreeViewer<E,I> extends ColumnViewer<E,I> {
 	 * @since 3.11
 	 */
 	@Override
-	public ITreeSelection getStructuredSelection() throws ClassCastException {
+	public ITreeSelection<E> getStructuredSelection() throws ClassCastException {
 		ISelection selection = getSelection();
 		if (selection instanceof ITreeSelection) {
-			return (ITreeSelection) selection;
+			return (ITreeSelection<E>) selection;
 		}
 		throw new ClassCastException("AbstractTreeViewer should return an instance of ITreeSelection from its getSelection() method."); //$NON-NLS-1$
 	}

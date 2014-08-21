@@ -8,7 +8,7 @@
  * Contributors:
  *     Tom Schindl <tom.schindl@bestsolution.at> - initial API and implementation
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
- *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 414565
+ *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 414565, 442278
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -113,8 +113,7 @@ public class Snippet005TreeCustomMenu {
 
 			@Override
 			public void menuAboutToShow(IMenuManager manager) {
-				IStructuredSelection<MyModel> selection = (IStructuredSelection<MyModel>) v
-						.getSelection();
+				IStructuredSelection<MyModel> selection = v.getStructuredSelection();
 				if (!selection.isEmpty()) {
 					a.setText("Action for "
 							+ (selection.getFirstElement()).toString());

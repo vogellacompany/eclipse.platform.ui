@@ -9,6 +9,7 @@
  *     Tom Schindl - initial API and implementation
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
+ *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 442278
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -89,8 +90,7 @@ public class Snippet022TableViewerRefreshNoScroll {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				v.getTable().setTopIndex(0);
-				IStructuredSelection<MyModel> selection = (IStructuredSelection<MyModel>) v
-						.getSelection();
+				IStructuredSelection<MyModel> selection = v.getStructuredSelection();
 				v.getTable().deselectAll();
 				v.refresh();
 				if (!selection.isEmpty()) {

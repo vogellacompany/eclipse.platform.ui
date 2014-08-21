@@ -10,6 +10,7 @@
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
+ *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 442278
  *******************************************************************************/
 package org.eclipse.jface.snippets.viewers;
 
@@ -158,8 +159,7 @@ public class Snippet053StartEditorWithContextMenu implements SelectionListener {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		IStructuredSelection<MyModel> selection = (IStructuredSelection<MyModel>) viewer
-				.getSelection();
+		IStructuredSelection<MyModel> selection = viewer.getStructuredSelection();
 		if (selection != null) {
 			viewer.editElement(selection.getFirstElement(), 0);
 		}
