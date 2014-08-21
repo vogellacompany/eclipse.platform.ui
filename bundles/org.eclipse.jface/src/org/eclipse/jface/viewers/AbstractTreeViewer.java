@@ -3036,8 +3036,15 @@ public abstract class AbstractTreeViewer<E,I> extends ColumnViewer<E,I> {
 	}
 
 	/**
-	 * This implementation of getSelection() returns an instance of
-	 * ITreeSelection.
+	 * The <code>AbstractTreeViewer</code> implementation of this method returns
+	 * the result as an <code>ITreeSelection</code>.
+	 * <p>
+	 * Subclasses do not typically override this method, but implement
+	 * <code>getSelectionFromWidget(List)</code> instead. If they override this
+	 * method, they should return an <code>ITreeSelection</code> as well.
+	 * </p>
+	 * Call {@link #getStructuredSelection()} instead to get an instance of
+	 * <code>ITreeSelection</code> directly.
 	 *
 	 * @since 3.2
 	 */
@@ -3057,6 +3064,28 @@ public abstract class AbstractTreeViewer<E,I> extends ColumnViewer<E,I> {
 		}
 		return new TreeSelection(list.toArray(new TreePath[list
 				.size()]), getComparer());
+	}
+
+	/**
+	 * Returns the <code>ITreeSelection</code> of this viewer.
+	 * <p>
+	 * Subclasses whose {@link #getSelection()} specifies to return a more
+	 * specific type should also override this method and return that type.
+	 * </p>
+	 *
+	 * @return ITreeSelection
+	 * @throws ClassCastException
+	 *             if the selection of the viewer is not an instance of
+	 *             ITreeSelection
+	 * @since 3.11
+	 */
+	@Override
+	public ITreeSelection getStructuredSelection() throws ClassCastException {
+		ISelection selection = getSelection();
+		if (selection instanceof ITreeSelection) {
+			return (ITreeSelection) selection;
+		}
+		throw new ClassCastException("AbstractTreeViewer should return an instance of ITreeSelection from its getSelection() method."); //$NON-NLS-1$
 	}
 
 	@Override

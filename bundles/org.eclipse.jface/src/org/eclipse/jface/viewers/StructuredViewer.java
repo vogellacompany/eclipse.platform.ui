@@ -9,6 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Tom Schindl - bug 151205
  *     Hendrik Still <hendrik.still@gammas.de> - bug 412273, bug 413973
+ *     Lars Voel <Lars.Vogel@gmail.com> - Bug 402439
  *******************************************************************************/
 package org.eclipse.jface.viewers;
 
