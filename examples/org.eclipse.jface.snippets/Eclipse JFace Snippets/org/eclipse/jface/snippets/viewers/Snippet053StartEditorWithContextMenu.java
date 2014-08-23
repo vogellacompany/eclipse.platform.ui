@@ -9,6 +9,7 @@
  *     Marcel <emmpeegee@gmail.com> - initial API and implementation
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
  *******************************************************************************/
 package org.eclipse.jface.snippets.viewers;
 
