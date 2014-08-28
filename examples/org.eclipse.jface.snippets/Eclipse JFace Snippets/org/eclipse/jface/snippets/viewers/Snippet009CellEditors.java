@@ -9,6 +9,7 @@
  *     Tom Schindl - initial API and implementation
  *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 414565
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -106,7 +107,6 @@ public class Snippet009CellEditors {
 		}
 
 		display.dispose();
-
 	}
 
 }

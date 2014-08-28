@@ -158,7 +158,6 @@ public class Snippet042ToolTipSupportFor32API {
 		public String getColumnText(MyModel element, int columnIndex) {
 			return "Column " + columnIndex + " => " + element.toString();
 		}
-
 	}
 
 	private static Image createImage(Display display, int red, int green,

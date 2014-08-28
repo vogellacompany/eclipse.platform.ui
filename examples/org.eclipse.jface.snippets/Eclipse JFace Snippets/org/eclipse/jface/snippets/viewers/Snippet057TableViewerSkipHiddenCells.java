@@ -78,27 +78,27 @@ public class Snippet057TableViewerSkipHiddenCells {
 
 	}
 
-	protected abstract class AbstractEditingSupport extends EditingSupport {
+	protected abstract class AbstractEditingSupport extends EditingSupport<Person, List<Person>> {
 
 		private TextCellEditor editor;
 
-		public AbstractEditingSupport(TableViewer viewer) {
+		public AbstractEditingSupport(TableViewer<Person, List<Person>> viewer) {
 			super(viewer);
 			editor = new TextCellEditor(viewer.getTable());
 		}
 
 		@Override
-		protected boolean canEdit(Object element) {
+		protected boolean canEdit(Person element) {
 			return true;
 		}
 
 		@Override
-		protected CellEditor getCellEditor(Object element) {
+		protected CellEditor getCellEditor(Person element) {
 			return editor;
 		}
 
 		@Override
-		protected void setValue(Object element, Object value) {
+		protected void setValue(Person element, Object value) {
 			this.doSetValue(element, value);
 			this.getViewer().update(element, null);
 		}
@@ -147,8 +147,8 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.setEditingSupport(new AbstractEditingSupport(tableviewer) {
 
 			@Override
-			protected Object getValue(Object element) {
-				return ((Person) element).givenname;
+			protected Object getValue(Person element) {
+				return element.givenname;
 			}
 
 			@Override
@@ -177,8 +177,8 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.setEditingSupport(new AbstractEditingSupport(tableviewer) {
 
 			@Override
-			protected Object getValue(Object element) {
-				return ((Person) element).surname;
+			protected Object getValue(Person element) {
+				return element.surname;
 			}
 
 			@Override
@@ -206,8 +206,8 @@ public class Snippet057TableViewerSkipHiddenCells {
 		column.setEditingSupport(new AbstractEditingSupport(tableviewer) {
 
 			@Override
-			protected Object getValue(Object element) {
-				return ((Person) element).email;
+			protected Object getValue(Person element) {
+				return element.email;
 			}
 
 			@Override
@@ -222,10 +222,10 @@ public class Snippet057TableViewerSkipHiddenCells {
 		tableviewer.getTable().setLinesVisible(true);
 		tableviewer.getTable().setHeaderVisible(true);
 
-		TableViewerFocusCellManager focusCellManager = new TableViewerFocusCellManager(
-				tableviewer, new FocusCellOwnerDrawHighlighter(tableviewer));
+		TableViewerFocusCellManager<Person, List<Person>> focusCellManager = new TableViewerFocusCellManager<Person, List<Person>>(
+				tableviewer, new FocusCellOwnerDrawHighlighter<Person, List<Person>>(tableviewer));
 
-		ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(
+		ColumnViewerEditorActivationStrategy<Person, List<Person>> actSupport = new ColumnViewerEditorActivationStrategy<Person, List<Person>>(
 				tableviewer) {
 
 			@Override

@@ -120,7 +120,7 @@ public class Snippet044NoColumnTableViewerKeyboardEditing {
 
 		});
 
-		v.setColumnProperties(new String[] { "1" });
+		v.setColumnProperties(new String[] {"1"});
 
 		TableViewerFocusCellManager<MyModel, List<MyModel>> focusCellManager = new TableViewerFocusCellManager<MyModel, List<MyModel>>(
 				v, new FocusBorderCellHighlighter<MyModel, List<MyModel>>(v));

@@ -215,7 +215,6 @@ public class Snippet62TextAndDialogCellEditor {
 				display.sleep();
 		}
 		display.dispose();
-
 	}
 
 }
