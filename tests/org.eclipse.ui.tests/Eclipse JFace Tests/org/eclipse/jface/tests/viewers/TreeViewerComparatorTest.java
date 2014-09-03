@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 IBM Corporation and others.
+ * Copyright (c) 2006, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ public class TreeViewerComparatorTest extends ViewerComparatorTest {
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof List) {
 				List<Object> children = new ArrayList<Object>();
-				Iterator<Object> iter = ((List<Object>) parentElement)
+				Iterator<?> iter = ((List<?>) parentElement)
 						.iterator();
 				while (iter.hasNext()) {
 					Object next = iter.next();
@@ -82,16 +82,16 @@ public class TreeViewerComparatorTest extends ViewerComparatorTest {
 		@Override
 		public void inputChanged(Viewer<? extends Object> viewer,
 				Object oldInput, Object newInput) {
-			List<Object> oldElement = (List<Object>) oldInput;
+			List<?> oldElement = (List<?>) oldInput;
 			if (oldElement != null) {
-				Iterator<Object> iter = oldElement.iterator();
+				Iterator<?> iter = oldElement.iterator();
 				while (iter.hasNext()) {
 					((Team) iter.next()).removeListener(this);
 				}
 			}
-			List<Object> newElement = (List<Object>) newInput;
+			List<?> newElement = (List<?>) newInput;
 			if (newElement != null) {
-				Iterator<Object> iter = newElement.iterator();
+				Iterator<?> iter = newElement.iterator();
 				while (iter.hasNext()) {
 					((Team) iter.next()).addListener(this);
 				}

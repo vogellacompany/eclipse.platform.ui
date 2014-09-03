@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 IBM Corporation and others.
+ * Copyright (c) 2006, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -150,7 +150,6 @@ public abstract class ViewerComparatorTest extends ViewerTestCase {
 		@Override
 		public void inputChanged(Viewer<? extends Object> viewer,
 				Object oldInput, Object newInput) {
-			// TODO Auto-generated method stub
 
 			if (oldInput != null) {
 				((Team) oldInput).removeListener(this);
@@ -181,7 +180,7 @@ public abstract class ViewerComparatorTest extends ViewerTestCase {
 				throw new IllegalArgumentException("Unknown kind of change");
 			}
 
-			StructuredSelection selection = new StructuredSelection(
+			StructuredSelection<Object> selection = new StructuredSelection<Object>(
 					change.getChildren());
 			if ((change.getModifiers() & TestModelChange.SELECT) != 0) {
 				comparatorTestViewer.setSelection(selection);

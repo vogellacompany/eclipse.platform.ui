@@ -40,21 +40,25 @@ public class VirtualLazyTableViewerTest extends VirtualTableViewerTest {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.tests.viewers.TableViewerTest#getContentProvider()
 	 */
+	@Override
 	protected TestModelContentProvider getContentProvider() {
 		return new TestLazyModelContentProvider(this);
 	}
 
+	@Override
 	public void setUp() {
 		updatedElements = new ArrayList<Integer>();
 		super.setUp();
 		processEvents();
 	}
 
+	@Override
 	protected void setUpModel() {
 		fRootElement = TestElement.createModel(2, 100);
         fModel = fRootElement.getModel();
 	}
 
+	@Override
 	public void tearDown() {
 		super.tearDown();
 		updatedElements = null;
@@ -89,8 +93,7 @@ public class VirtualLazyTableViewerTest extends VirtualTableViewerTest {
 
 		table.showSelection();
 
-		IStructuredSelection result = (IStructuredSelection) fViewer
-				.getSelection();
+		IStructuredSelection<TestElement> result = fViewer.getStructuredSelection();
 		assertEquals(selectionSize, result.size());
 		assertTrue("First elements do not match ",
 				result.getFirstElement() == children[indices[0]]);
@@ -123,38 +126,42 @@ public class VirtualLazyTableViewerTest extends VirtualTableViewerTest {
 		int childCount = fRootElement.getChildCount();
 		TestElement lastChild = fRootElement.getChildAt(childCount-1);
 		// materialize last child
-		fViewer.setSelection(new StructuredSelection(lastChild));
+		fViewer.setSelection(new StructuredSelection<TestElement>(lastChild));
 		processEvents();
 		assertNotNull("last Child should be in the map", fViewer.testFindItem(lastChild));
 		((TableViewer<TestElement,TestElement>)fViewer).setItemCount(childCount - 1);
 		assertNull("last Child should no longer be in the map", fViewer.testFindItem(lastChild));
 	}
 
-
+	@Override
 	public void testSorter() {
 		// This test is no use here as it is
 		// based on the assumption that all items
 		// are created.
 	}
 
+	@Override
 	public void testRenameWithSorter() {
 		// This test is no use here as it is
 		// based on the assumption that all items
 		// are created.
 	}
 
+	@Override
 	public void testSetFilters() {
 		// This test is no use here as it is
 		// based on the assumption that all items
 		// are created.
 	}
 
+	@Override
 	public void testFilter() {
 		// This test is no use here as it is
 		// based on the assumption that all items
 		// are created.
 	}
 
+	@Override
 	public void testRenameWithFilter() {
 		// This test is no use here as it is
 		// based on the assumption that all items
