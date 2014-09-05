@@ -47,7 +47,6 @@ public abstract class CompositeLabelProviderTest extends ViewerTestCase {
 		@Override
 		public void inputChanged(Viewer<? extends TestElement> viewer,
 				TestElement oldInput, TestElement newInput) {
-			// TODO Auto-generated method stub
 
 		}
 
@@ -107,7 +106,6 @@ public abstract class CompositeLabelProviderTest extends ViewerTestCase {
 		@Override
 		public void inputChanged(Viewer<? extends TestElement> viewer,
 				TestElement oldInput, TestElement newInput) {
-			// TODO Auto-generated method stub
 		}
 
 	}
