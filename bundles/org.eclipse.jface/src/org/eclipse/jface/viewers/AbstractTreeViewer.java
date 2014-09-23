@@ -3039,12 +3039,12 @@ public abstract class AbstractTreeViewer<E,I> extends ColumnViewer<E,I> {
 	 * The <code>AbstractTreeViewer</code> implementation of this method returns
 	 * the result as an <code>ITreeSelection</code>.
 	 * <p>
+	 * Call {@link #getStructuredSelection()} instead to get an instance of
+	 * <code>ITreeSelection</code> directly.
+	 * </p>
 	 * Subclasses do not typically override this method, but implement
 	 * <code>getSelectionFromWidget(List)</code> instead. If they override this
 	 * method, they should return an <code>ITreeSelection</code> as well.
-	 * </p>
-	 * Call {@link #getStructuredSelection()} instead to get an instance of
-	 * <code>ITreeSelection</code> directly.
 	 *
 	 * @since 3.2
 	 */

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2013 IBM Corporation and others.
+ * Copyright (c) 2000, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -1044,9 +1044,13 @@ public abstract class StructuredViewer<E,I> extends ContentViewer<E,I> implement
 	 * The <code>StructuredViewer</code> implementation of this method returns
 	 * the result as an <code>IStructuredSelection</code>.
 	 * <p>
+	 * Call {@link #getStructuredSelection()} instead to get an instance of
+	 * <code>IStructuredSelection</code> directly.
+	 * </p>
 	 * Subclasses do not typically override this method, but implement
-	 * <code>getSelectionFromWidget(List)</code> instead.
-	 * <p>
+	 * <code>getSelectionFromWidget(List)</code> instead. If they override this
+	 * method, they should return an <code>IStructuredSelection</code> as well.
+	 *
 	 * @return ISelection
 	 */
 	@Override
