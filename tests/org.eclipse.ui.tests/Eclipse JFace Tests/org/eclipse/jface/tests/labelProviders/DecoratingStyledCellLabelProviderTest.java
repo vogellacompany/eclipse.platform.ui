@@ -533,13 +533,6 @@ public class DecoratingStyledCellLabelProviderTest extends ViewerTestCase {
 			super("Deutschland", "Germany", "1990");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.eclipse.jface.tests.viewers.OwnerDrawExample.CountryEntry#drawFlag
-		 * (org.eclipse.swt.widgets.Event)
-		 */
 		@Override
 		protected void drawFlag(Event event) {
 
@@ -575,13 +568,6 @@ public class DecoratingStyledCellLabelProviderTest extends ViewerTestCase {
 			super("\u00D6sterreich", "Austria", "TBD");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.eclipse.jface.tests.viewers.OwnerDrawExample.CountryEntry#drawFlag
-		 * (org.eclipse.swt.widgets.Event)
-		 */
 		@Override
 		protected void drawFlag(Event event) {
 
@@ -615,13 +601,6 @@ public class DecoratingStyledCellLabelProviderTest extends ViewerTestCase {
 			super("Blighty", "England", "1966");
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see
-		 * org.eclipse.jface.tests.viewers.OwnerDrawExample.CountryEntry#drawFlag
-		 * (org.eclipse.swt.widgets.Event)
-		 */
 		@Override
 		protected void drawFlag(Event event) {
 

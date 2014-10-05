@@ -53,11 +53,6 @@ public class Bug205700TreeViewerTest extends TestCase {
 		shell.open();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#tearDown()
-	 */
 	@Override
 	protected void tearDown() throws Exception {
 		shell.close();

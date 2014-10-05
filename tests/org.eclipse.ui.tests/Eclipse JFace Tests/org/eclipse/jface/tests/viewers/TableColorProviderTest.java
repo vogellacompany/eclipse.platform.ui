@@ -147,9 +147,6 @@ public class TableColorProviderTest extends StructuredViewerTest {
         junit.textui.TestRunner.run(TableColorProviderTest.class);
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.jface.tests.viewers.StructuredViewerTest#createViewer(org.eclipse.swt.widgets.Composite)
-     */
     protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
         TableViewer<TestElement,TestElement> viewer = new TableViewer<TestElement,TestElement>(parent);
         viewer.setContentProvider(new TestModelContentProvider());
@@ -195,9 +192,6 @@ public class TableColorProviderTest extends StructuredViewerTest {
             return null;
         }
 
-        /* (non-Javadoc)
-         * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
-         */
         public Color getForeground(TestElement element, int columnIndex) {
             switch (columnIndex) {
             case 0:
@@ -208,11 +202,6 @@ public class TableColorProviderTest extends StructuredViewerTest {
             }
         }
 
-
-
-        /* (non-Javadoc)
-         * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
-         */
         public Color getBackground(TestElement element, int columnIndex) {
             switch (columnIndex) {
             case 0:
@@ -228,16 +217,10 @@ public class TableColorProviderTest extends StructuredViewerTest {
      * A class to test color providing without coloured columns.
      */
     class ColorViewLabelProvider extends TableTestLabelProvider implements IColorProvider<TestElement>{
-    	/* (non-Javadoc)
-		 * @see org.eclipse.jface.viewers.IColorProvider#getBackground(java.lang.Object)
-		 */
 		public Color getBackground(TestElement element) {
 			return red;
 		}
 
-		/* (non-Javadoc)
-		 * @see org.eclipse.jface.viewers.IColorProvider#getForeground(java.lang.Object)
-		 */
 		public Color getForeground(TestElement element) {
 			return green;
 		}

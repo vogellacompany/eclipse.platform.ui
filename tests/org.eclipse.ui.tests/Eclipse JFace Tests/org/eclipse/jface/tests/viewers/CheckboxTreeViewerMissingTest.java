@@ -60,5 +60,4 @@ public class CheckboxTreeViewerMissingTest extends CheckboxTreeViewerTest {
 	public void testLabelProvider() {
         super.testLabelProvider();
     }
-
 }

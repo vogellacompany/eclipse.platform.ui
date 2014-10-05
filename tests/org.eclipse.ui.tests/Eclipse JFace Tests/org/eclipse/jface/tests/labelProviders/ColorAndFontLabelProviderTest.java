@@ -44,29 +44,17 @@ public class ColorAndFontLabelProviderTest extends CompositeLabelProviderTest {
 			super();
 		}
 
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see org.eclipse.jface.viewers.IFontProvider#getFont(java.lang.Object)
-		 */
+		@Override
 		public Font getFont(TestElement element) {
 			return font;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see org.eclipse.jface.viewers.IColorProvider#getBackground(java.lang.Object)
-		 */
+		@Override
 		public Color getBackground(TestElement element) {
 			return background;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see org.eclipse.jface.viewers.IColorProvider#getForeground(java.lang.Object)
-		 */
+		@Override
 		public Color getForeground(TestElement element) {
 			return foreground;
 		}
@@ -83,11 +71,7 @@ public class ColorAndFontLabelProviderTest extends CompositeLabelProviderTest {
 		super(name);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see org.eclipse.jface.tests.viewers.ViewerTestCase#createViewer(org.eclipse.swt.widgets.Composite)
-	 */
+	@Override
 	protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
 		initializeColors(parent);
 		final TableViewer<TestElement,TestElement> v = new TableViewer<TestElement,TestElement>(parent);

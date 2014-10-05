@@ -98,6 +98,5 @@ public class DecoratingLabelProviderTreePathTest extends
 		assertTrue("Foreground was not set", item.getForeground(0).equals(
 				foreground));
 		assertTrue("Font was not set", item.getFont(0).equals(font));
-
 	}
 }
