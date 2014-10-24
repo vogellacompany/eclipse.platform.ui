@@ -7,9 +7,8 @@
  *
  * Contributors:
  *     Tom Schindl - initial API and implementation
- *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
  *     Lars Vogel <Lars.Vogel@gmail.com> - Bug 414565
- *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 442343, 448143
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -19,22 +18,22 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TableItem;
 
 /**
  * Edit cell values in a table
  *
  */
 public class Snippet009CellEditors {
-
 	public class MyModel {
 		public int counter;
 
@@ -49,33 +48,38 @@ public class Snippet009CellEditors {
 	}
 
 	public Snippet009CellEditors(Shell shell) {
-		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(
-				shell, SWT.BORDER | SWT.FULL_SELECTION);
-		v.setLabelProvider(new LabelProvider<MyModel>());
+		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(shell, SWT.BORDER
+				| SWT.FULL_SELECTION);
 		v.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
-		v.setCellModifier(new ICellModifier<MyModel>() {
+
+		TableViewerColumn<MyModel, List<MyModel>> viewerColumn = new TableViewerColumn<MyModel, List<MyModel>>(v,
+				SWT.NONE);
+		viewerColumn.getColumn().setText("Column1");
+		viewerColumn.getColumn().setWidth(300);
+		viewerColumn.setLabelProvider(new ColumnLabelProvider<MyModel>());
+		viewerColumn.setEditingSupport(new EditingSupport<MyModel, List<MyModel>>(v) {
 
 			@Override
-			public void modify(Object element, String property, Object value) {
-				TableItem item = (TableItem) element;
-				((MyModel) item.getData()).counter = Integer.parseInt(value
-						.toString());
-				v.update((MyModel) item.getData(), null);
+			protected void setValue(MyModel element, Object value) {
+				element.counter = Integer.parseInt(value.toString());
+				getViewer().update(element, null);
 			}
 
 			@Override
-			public boolean canModify(MyModel element, String property) {
-				return element.counter % 2 == 0;
-			}
-
-			@Override
-			public Object getValue(MyModel element, String property) {
+			protected Object getValue(MyModel element) {
 				return element.counter + "";
 			}
 
+			@Override
+			protected CellEditor getCellEditor(MyModel element) {
+				return new TextCellEditor((Composite) getViewer().getControl());
+			}
+
+			@Override
+			protected boolean canEdit(MyModel element) {
+				return element.counter % 2 == 0;
+			}
 		});
-		v.setColumnProperties(new String[] { "column1" });
-		v.setCellEditors(new CellEditor[] { new TextCellEditor(v.getTable()) });
 
 		List<MyModel> model = createModel();
 		v.setInput(model);
@@ -83,9 +87,9 @@ public class Snippet009CellEditors {
 	}
 
 	private List<MyModel> createModel() {
-		List<MyModel> elements = new ArrayList<MyModel>(10);
+		List<MyModel> elements = new ArrayList<MyModel>();
 		for (int i = 0; i < 10; i++) {
-			elements.add(i, new MyModel(i));
+			elements.add(new MyModel(i));
 		}
 
 		return elements;
@@ -107,6 +111,7 @@ public class Snippet009CellEditors {
 		}
 
 		display.dispose();
+
 	}
 
 }

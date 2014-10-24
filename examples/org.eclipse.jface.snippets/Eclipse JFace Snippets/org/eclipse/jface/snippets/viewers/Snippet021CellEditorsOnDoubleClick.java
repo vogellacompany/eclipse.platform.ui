@@ -9,7 +9,7 @@
  *     Tom Schindl - initial API and implementation
  *     Dinko Ivanov - bug 164365
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
- *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 448143
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -19,18 +19,20 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.ColumnViewer;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 /**
@@ -40,9 +42,8 @@ import org.eclipse.swt.widgets.TableItem;
  *
  */
 public class Snippet021CellEditorsOnDoubleClick {
-	private class MyCellModifier implements ICellModifier<MyModel> {
 
-		private TableViewer<MyModel, List<MyModel>> viewer;
+	private class MyEditingSupport extends EditingSupport<MyModel, List<MyModel>> {
 
 		private boolean enabled;
 
@@ -50,27 +51,31 @@ public class Snippet021CellEditorsOnDoubleClick {
 			this.enabled = enabled;
 		}
 
-		public void setViewer(TableViewer<MyModel, List<MyModel>> viewer) {
-			this.viewer = viewer;
+		public MyEditingSupport(ColumnViewer<MyModel, List<MyModel>> viewer) {
+			super(viewer);
 		}
 
 		@Override
-		public void modify(Object element, String property, Object value) {
-			TableItem item = (TableItem) element;
-			((MyModel) item.getData()).counter = Integer.parseInt(value
-					.toString());
-			viewer.update((MyModel) item.getData(), null);
+		protected CellEditor getCellEditor(MyModel element) {
+			return new TextCellEditor((Composite) getViewer().getControl());
 		}
 
 		@Override
-		public boolean canModify(MyModel element, String property) {
+		protected boolean canEdit(MyModel element) {
 			return enabled && element.counter % 2 == 0;
 		}
 
 		@Override
-		public Object getValue(MyModel element, String property) {
+		protected Object getValue(MyModel element) {
 			return element.counter + "";
 		}
+
+		@Override
+		protected void setValue(MyModel element, Object value) {
+			element.counter = Integer.parseInt(value.toString());
+			getViewer().update(element, null);
+		}
+
 	}
 
 	public class MyModel {
@@ -88,25 +93,23 @@ public class Snippet021CellEditorsOnDoubleClick {
 
 	public Snippet021CellEditorsOnDoubleClick(Shell shell) {
 		final Table table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
-		final MyCellModifier modifier = new MyCellModifier();
+		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(table);
+		final MyEditingSupport editingSupport = new MyEditingSupport(v);
 
 		table.addListener(SWT.MouseDown, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
-				modifier.setEnabled(false);
+				editingSupport.setEnabled(false);
 			}
 
 		});
-
-		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(
-				table);
 
 		table.addListener(SWT.MouseDoubleClick, new Listener() {
 
 			@Override
 			public void handleEvent(Event event) {
-				modifier.setEnabled(true);
+				editingSupport.setEnabled(true);
 				TableItem[] selection = table.getSelection();
 
 				if (selection.length != 1) {
@@ -117,8 +120,8 @@ public class Snippet021CellEditorsOnDoubleClick {
 
 				for (int i = 0; i < table.getColumnCount(); i++) {
 					if (item.getBounds(i).contains(event.x, event.y)) {
-						v.editElement((MyModel) item.getData(), i);
-						modifier.setEnabled(false);
+						v.editElement(v.getStructuredSelection().getFirstElement(), i);
+						editingSupport.setEnabled(false);
 						break;
 					}
 				}
@@ -126,16 +129,13 @@ public class Snippet021CellEditorsOnDoubleClick {
 
 		});
 
-		modifier.setViewer(v);
+		TableViewerColumn<MyModel, List<MyModel>> viewerColumn = new TableViewerColumn<MyModel, List<MyModel>>(v,
+				SWT.NONE);
+		viewerColumn.getColumn().setWidth(200);
+		viewerColumn.setLabelProvider(new ColumnLabelProvider<MyModel>());
+		viewerColumn.setEditingSupport(editingSupport);
 
-		TableColumn column = new TableColumn(table, SWT.NONE);
-		column.setWidth(200);
-
-		v.setLabelProvider(new LabelProvider<MyModel>());
 		v.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
-		v.setCellModifier(modifier);
-		v.setColumnProperties(new String[] { "column1" });
-		v.setCellEditors(new CellEditor[] { new TextCellEditor(v.getTable()) });
 
 		v.setInput(createModel());
 		v.getTable().setLinesVisible(true);
