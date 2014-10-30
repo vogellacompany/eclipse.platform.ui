@@ -9,7 +9,7 @@
  *     Tom Schindl - initial API and implementation
  *     Dinko Ivanov - bug 164365
  *     Jeanderson Candido <http://jeandersonbc.github.io> - Bug 414565
- *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 448143
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -19,17 +19,17 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 
 /**
  * This snippet represents usage of the ComboBoxCell-Editor
@@ -38,33 +38,6 @@ import org.eclipse.swt.widgets.TableItem;
  *
  */
 public class Snippet027ComboBoxCellEditors {
-	private class MyCellModifier implements ICellModifier<MyModel> {
-
-		private TableViewer<MyModel, List<MyModel>> viewer;
-
-		public MyCellModifier(TableViewer<MyModel, List<MyModel>> viewer) {
-			this.viewer = viewer;
-		}
-
-		@Override
-		public void modify(Object element, String property, Object value) {
-			TableItem item = (TableItem) element;
-			// We get the index and need to calculate the real value
-			((MyModel) item.getData()).counter = ((Integer) value).intValue() * 10;
-			viewer.update((MyModel) item.getData(), null);
-		}
-
-		@Override
-		public boolean canModify(MyModel element, String property) {
-			return true;
-		}
-
-		@Override
-		public Object getValue(MyModel element, String property) {
-			return new Integer(element.counter / 10);
-		}
-	}
-
 	public class MyModel {
 		public int counter;
 
@@ -80,21 +53,41 @@ public class Snippet027ComboBoxCellEditors {
 
 	public Snippet027ComboBoxCellEditors(Shell shell) {
 		final Table table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
-		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(
-				table);
-		final MyCellModifier modifier = new MyCellModifier(v);
+		final TableViewer<MyModel, List<MyModel>> v = new TableViewer<MyModel, List<MyModel>>(table);
+		v.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
 
 		TableColumn column = new TableColumn(table, SWT.NONE);
 		column.setWidth(200);
+		TableViewerColumn<MyModel, List<MyModel>> viewerColumn = new TableViewerColumn<MyModel, List<MyModel>>(v,
+				column);
+		viewerColumn.setLabelProvider(new ColumnLabelProvider<MyModel>());
+		viewerColumn.setEditingSupport(new EditingSupport<MyModel, List<MyModel>>(v) {
 
-		v.setLabelProvider(new LabelProvider<MyModel>());
-		v.setContentProvider(ArrayContentProvider.getInstance(MyModel.class));
-		v.setCellModifier(modifier);
-		v.setColumnProperties(new String[] { "column1" });
-		v.setCellEditors(new CellEditor[] { new ComboBoxCellEditor(
-				v.getTable(), new String[] { "Zero", "Ten", "Twenty", "Thirty",
-						"Fourty", "Fifty", "Sixty", "Seventy", "Eighty",
-						"Ninety" }) });
+			@Override
+			protected void setValue(MyModel element, Object value) {
+				element.counter = ((Integer) value).intValue() * 10;
+				getViewer().update(element, null);
+			}
+
+			@Override
+			protected Object getValue(MyModel element) {
+				// We need to calculate back to the index
+				return new Integer(element.counter / 10);
+			}
+
+			@Override
+			protected CellEditor getCellEditor(MyModel element) {
+				return new ComboBoxCellEditor(
+						v.getTable(), new String[] { "Zero", "Ten", "Twenty", "Thirty",
+							"Fourty", "Fifty", "Sixty", "Seventy", "Eighty",
+							"Ninety" });
+			}
+
+			@Override
+			protected boolean canEdit(MyModel element) {
+				return true;
+			}
+		});
 
 		v.setInput(createModel());
 		v.getTable().setLinesVisible(true);
@@ -102,6 +95,7 @@ public class Snippet027ComboBoxCellEditors {
 
 	private List<MyModel> createModel() {
 		List<MyModel> elements = new ArrayList<MyModel>();
+
 		for (int i = 0; i < 10; i++) {
 			elements.add(new MyModel(i * 10));
 		}

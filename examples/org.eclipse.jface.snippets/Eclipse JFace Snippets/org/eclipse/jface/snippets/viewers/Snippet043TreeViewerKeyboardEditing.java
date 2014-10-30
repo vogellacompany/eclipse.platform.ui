@@ -9,7 +9,7 @@
  *     Tom Schindl - initial API and implementation
  *     Lars Vogel (lars.vogel@gmail.com) - Bug 413427
  *     Jeanderson Candido (http://jeandersonbc.github.io) - Bug 414565
- *     Hendrik Still <hendrik.still@gammas.de> - bug 417676
+ *     Simon Scholz <simon.scholz@vogella.com> - Bug 448143
  *******************************************************************************/
 
 package org.eclipse.jface.snippets.viewers;
@@ -18,15 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
+import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.FocusCellOwnerDrawHighlighter;
-import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.jface.viewers.TreeViewerEditor;
 import org.eclipse.jface.viewers.TreeViewerFocusCellManager;
 import org.eclipse.jface.viewers.Viewer;
@@ -35,8 +37,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -46,12 +48,12 @@ import org.eclipse.swt.widgets.Shell;
  * @author Tom Schindl <tom.schindl@bestsolution.at>
  *
  */
-public class Snippet043NoColumnTreeViewerKeyboardEditing {
-	public Snippet043NoColumnTreeViewerKeyboardEditing(final Shell shell) {
+public class Snippet043TreeViewerKeyboardEditing {
+	public Snippet043TreeViewerKeyboardEditing(final Shell shell) {
 		Button b = new Button(shell, SWT.PUSH);
 		b.setText("BBB");
-		final TreeViewer<MyModel, MyModel> v = new TreeViewer<MyModel, MyModel>(
-				shell, SWT.BORDER | SWT.FULL_SELECTION);
+		final TreeViewer v = new TreeViewer(shell, SWT.BORDER
+				| SWT.FULL_SELECTION);
 		b.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -61,41 +63,44 @@ public class Snippet043NoColumnTreeViewerKeyboardEditing {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				MyModel root = v.getInput();
-				TreePath<MyModel> path = new TreePath<MyModel>(
-						new MyModel[] { root,
+				MyModel root = (MyModel) v.getInput();
+				TreePath path = new TreePath(new Object[] { root,
 						root.child.get(1), root.child.get(1).child.get(0) });
 				v.editElement(path, 0);
 			}
 
 		});
 
-		v.setCellEditors(new CellEditor[] { new TextCellEditor(v.getTree()) });
-		v.setColumnProperties(new String[] { "col1" });
-		v.setCellModifier(new ICellModifier<MyModel>() {
+		TreeViewerColumn viewerColumn = new TreeViewerColumn(v, SWT.NONE);
+		viewerColumn.getColumn().setWidth(300);
+		viewerColumn.setLabelProvider(new ColumnLabelProvider());
+		viewerColumn.setEditingSupport(new EditingSupport(v) {
 
 			@Override
-			public boolean canModify(MyModel element, String property) {
+			protected void setValue(Object element, Object value) {
+				((MyModel) element).counter = Integer.parseInt(value.toString());
+				getViewer().update(element, null);
+			}
+
+			@Override
+			protected Object getValue(Object element) {
+				return ((MyModel) element).counter + "";
+			}
+
+			@Override
+			protected CellEditor getCellEditor(Object element) {
+				return new TextCellEditor((Composite) getViewer().getControl());
+			}
+
+			@Override
+			protected boolean canEdit(Object element) {
 				return true;
 			}
-
-			@Override
-			public Object getValue(MyModel element, String property) {
-				return element.counter + "";
-			}
-
-			@Override
-			public void modify(Object element, String property, Object value) {
-				MyModel myModel = (MyModel) ((Item) element).getData();
-				myModel.counter = Integer.parseInt(value.toString());
-				v.update(myModel, null);
-			}
-
 		});
 
-		TreeViewerFocusCellManager<MyModel, MyModel> focusCellManager = new TreeViewerFocusCellManager<MyModel, MyModel>(
-				v, new FocusCellOwnerDrawHighlighter<MyModel, MyModel>(v));
-		ColumnViewerEditorActivationStrategy<MyModel, MyModel> actSupport = new ColumnViewerEditorActivationStrategy<MyModel, MyModel>(
+		TreeViewerFocusCellManager focusCellManager = new TreeViewerFocusCellManager(
+				v, new FocusCellOwnerDrawHighlighter(v));
+		ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(
 				v) {
 			@Override
 			protected boolean isEditorActivationEvent(
@@ -121,7 +126,7 @@ public class Snippet043NoColumnTreeViewerKeyboardEditing {
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		shell.setLayout(new FillLayout());
-		new Snippet043NoColumnTreeViewerKeyboardEditing(shell);
+		new Snippet043TreeViewerKeyboardEditing(shell);
 		shell.open();
 
 		while (!shell.isDisposed()) {
@@ -131,13 +136,11 @@ public class Snippet043NoColumnTreeViewerKeyboardEditing {
 		display.dispose();
 	}
 
-	private class MyContentProvider implements
-			ITreeContentProvider<MyModel, MyModel> {
+	private class MyContentProvider implements ITreeContentProvider {
 
 		@Override
-		public MyModel[] getElements(MyModel inputElement) {
-			MyModel[] myModels = new MyModel[inputElement.child.size()];
-			return inputElement.child.toArray(myModels);
+		public Object[] getElements(Object inputElement) {
+			return ((MyModel) inputElement).child.toArray();
 		}
 
 		@Override
@@ -145,26 +148,25 @@ public class Snippet043NoColumnTreeViewerKeyboardEditing {
 		}
 
 		@Override
-		public void inputChanged(Viewer<? extends MyModel> viewer,
-				MyModel oldInput, MyModel newInput) {
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
 		@Override
-		public MyModel[] getChildren(MyModel parentElement) {
+		public Object[] getChildren(Object parentElement) {
 			return getElements(parentElement);
 		}
 
 		@Override
-		public MyModel getParent(MyModel element) {
+		public Object getParent(Object element) {
 			if (element == null) {
 				return null;
 			}
-			return element.parent;
+			return ((MyModel) element).parent;
 		}
 
 		@Override
-		public boolean hasChildren(MyModel element) {
-			return element.child.size() > 0;
+		public boolean hasChildren(Object element) {
+			return ((MyModel) element).child.size() > 0;
 		}
 
 	}
