@@ -44,8 +44,7 @@ public class TestLazyModelContentProvider extends TestModelContentProvider
 		if (input == null)
 			return; // Nothing to update yet
 
-		((TableViewer<TestElement, TestElement>) test.fViewer).replace(
-				input.getChildAt(index), index);
+		((TableViewer<TestElement, TestElement>) test.fViewer).replace(input.getChildAt(index), index);
 
 	}
 
@@ -58,7 +57,7 @@ public class TestLazyModelContentProvider extends TestModelContentProvider
 	public void inputChanged(Viewer<? extends TestElement> viewer,
 			TestElement oldInput, TestElement newInput) {
 		input = newInput;
-		((TableViewer<TestElement, TestElement>) viewer)
+		((TableViewer<?, ?>) viewer)
 				.setItemCount(input == null ? 0 : input.getChildCount());
 		super.inputChanged(viewer, oldInput, newInput);
 	}

@@ -351,9 +351,8 @@ public class CheckboxTreeViewerTest extends TreeViewerTest {
 		}
 
 		Object[] actuallyChecked = ctv.getCheckedElements();
-
-		for (int i = 0; i < actuallyChecked.length; i++) {
-			assertTrue("getCheckedElements should include all checked elements", checked.remove(actuallyChecked[i]));
+		for (Object element : actuallyChecked) {
+			assertTrue("getCheckedElements should include all checked elements", checked.remove(element));
 		}
 
 		assertTrue("getCheckedElements should not include any unchecked elements", checked.isEmpty());
@@ -411,14 +410,14 @@ public class CheckboxTreeViewerTest extends TreeViewerTest {
 		ctv.setAllChecked(true);
 		Object[] expandedElements = ctv.getExpandedElements();
 
-		for (int i = 0; i < expandedElements.length; i++) {
-			assertTrue("all expanded items should be checked", ctv.getChecked(expandedElements[i]));
+		for (Object expandedElement : expandedElements) {
+			assertTrue("all expanded items should be checked", ctv.getChecked(expandedElement));
 		}
 
 		ctv.setAllChecked(false);
 
-		for (int i = 0; i < expandedElements.length; i++) {
-			assertFalse("all expanded items should be unchecked", ctv.getChecked(expandedElements[i]));
+		for (Object expandedElement : expandedElements) {
+			assertFalse("all expanded items should be unchecked", ctv.getChecked(expandedElement));
 		}
 	}
 

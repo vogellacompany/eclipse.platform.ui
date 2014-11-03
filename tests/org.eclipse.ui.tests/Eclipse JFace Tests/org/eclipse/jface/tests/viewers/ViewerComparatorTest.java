@@ -153,7 +153,6 @@ public abstract class ViewerComparatorTest extends ViewerTestCase {
 
 			if (oldInput != null) {
 				((Team) oldInput).removeListener(this);
-				;
 			}
 
 			if (newInput != null) {

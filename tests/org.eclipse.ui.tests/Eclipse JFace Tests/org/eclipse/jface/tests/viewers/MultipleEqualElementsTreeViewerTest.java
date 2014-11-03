@@ -165,8 +165,8 @@ public class MultipleEqualElementsTreeViewerTest extends TreeViewerTest {
 		TreeItem[] treeItems = new TreeItem[items.length];
 		System.arraycopy(items, 0, treeItems, 0, items.length);
 		assertEquals(4, treeItems.length);
-		for (int i = 0; i < treeItems.length; i++) {
-			assertNotNull(treeItems[i]);
+		for (TreeItem treeItem : treeItems) {
+			assertNotNull(treeItem);
 		}
 		getTreeViewer().getTree().setSelection(treeItems);
 		treeSelection = (ITreeSelection) getTreeViewer().getSelection();
@@ -208,14 +208,14 @@ public class MultipleEqualElementsTreeViewerTest extends TreeViewerTest {
 		getTreeViewer().setExpandedTreePaths(
 				new TreePath[] { treePath_1_2_21, treePath_2_21 });
 		Widget[] items = getTreeViewer().testFindItems(element_2_1);
-		for (int i = 0; i < items.length; i++) {
-			assertEquals("0-2-1 name-1", ((TreeItem) items[i]).getText());
+		for (Widget item : items) {
+			assertEquals("0-2-1 name-1", ((TreeItem) item).getText());
 		}
 		element_2_1.setLabel("billy");
 		// the setLabel call fires a change event which results in a call like this:
 		// getTreeViewer().update(element_2_1, null);
-		for (int i = 0; i < items.length; i++) {
-			assertEquals("0-2-1 billy", ((TreeItem) items[i]).getText());
+		for (Widget item : items) {
+			assertEquals("0-2-1 billy", ((TreeItem) item).getText());
 		}
 	}
 

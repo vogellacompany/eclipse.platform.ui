@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.ILazyContentProvider;
+import org.eclipse.jface.viewers.Viewer;
 
 /**
  * The LazyVirtualTableView is the VirtualTableView with lazy content.
@@ -57,10 +58,8 @@ public class LazyVirtualTableView extends VirtualTableView {
 			}
 
 			@Override
-			public void inputChanged(
-					org.eclipse.jface.viewers.Viewer<? extends Object> viewer,
-					Object oldInput, Object newInput) {
-				// TODO Auto-generated method stub
+			public void inputChanged(Viewer<? extends Object> viewer, Object oldInput, Object newInput) {
+				// Do nothing.	
 			}
 		};
 	}

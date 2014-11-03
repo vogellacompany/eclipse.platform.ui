@@ -30,20 +30,23 @@ public class TreeViewerColumnTest extends AbstractTreeViewerTest {
             implements ITableLabelProvider<TestElement> {
         public boolean fExtended = false;
 
-        public String getText(TestElement element) {
+        @Override
+		public String getText(TestElement element) {
             if (fExtended)
                 return providedString(element.toString());
 
             return element.toString();
-        }
+		}
 
-        public String getColumnText(TestElement element, int index) {
+        @Override
+		public String getColumnText(TestElement element, int index) {
             if (fExtended)
                 return providedString(element);
             return element.toString();
         }
 
-        public Image getColumnImage(TestElement element, int columnIndex) {
+        @Override
+		public Image getColumnImage(TestElement element, int columnIndex) {
             return null;
         }
     }
@@ -52,7 +55,8 @@ public class TreeViewerColumnTest extends AbstractTreeViewerTest {
         super(name);
     }
 
-    protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
+    @Override
+	protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
         TreeViewer<TestElement,TestElement> viewer = new TreeViewer<TestElement,TestElement>(parent);
         viewer.setContentProvider(new TestModelContentProvider());
         viewer.setLabelProvider(new TableTreeTestLabelProvider());
@@ -75,18 +79,21 @@ public class TreeViewerColumnTest extends AbstractTreeViewerTest {
         return viewer;
     }
 
-    protected int getItemCount() {
+    @Override
+	protected int getItemCount() {
         TestElement first = fRootElement.getFirstChild();
         TreeItem ti = (TreeItem) fViewer.testFindItem(first);
          return ti.getParent().getItemCount();
     }
 
-    protected int getItemCount(TestElement element) {
+    @Override
+	protected int getItemCount(TestElement element) {
         TreeItem ti = (TreeItem) fViewer.testFindItem(element);
         return ti.getItemCount();
     }
 
-    protected String getItemText(int at) {
+    @Override
+	protected String getItemText(int at) {
         return ((Tree) fViewer.getControl()).getItems()[at].getText();
     }
 
@@ -112,7 +119,8 @@ public class TreeViewerColumnTest extends AbstractTreeViewerTest {
 		assertNull(getViewerColumn((TreeViewer<TestElement,TestElement>) fViewer, 2));
     }
 
-    public void testLabelProvider() {
+    @Override
+	public void testLabelProvider() {
         TreeViewer<TestElement,TestElement> viewer = (TreeViewer<TestElement,TestElement>) fViewer;
         TableTreeTestLabelProvider provider = (TableTreeTestLabelProvider) viewer
                 .getLabelProvider();
@@ -127,7 +135,8 @@ public class TreeViewerColumnTest extends AbstractTreeViewerTest {
         fViewer.refresh();
     }
 
-    public void testLabelProviderStateChange() {
+    @Override
+	public void testLabelProviderStateChange() {
         TreeViewer<TestElement,TestElement> viewer = (TreeViewer<TestElement,TestElement>) fViewer;
         TableTreeTestLabelProvider provider = (TableTreeTestLabelProvider) viewer
                 .getLabelProvider();

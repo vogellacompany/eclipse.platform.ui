@@ -59,8 +59,9 @@ public abstract class ViewerTestCase extends TestCase {
 	    if (shell != null && !shell.isDisposed()) {
 	        Display display = shell.getDisplay();
 	        if (display != null) {
-	            while (shell.isVisible())
-	                display.readAndDispatch();
+	            while (shell.isVisible()) {
+					display.readAndDispatch();
+				}
 	        }
 	    }
 	}

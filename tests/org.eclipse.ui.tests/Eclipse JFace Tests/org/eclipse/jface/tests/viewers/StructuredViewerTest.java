@@ -31,8 +31,9 @@ public abstract class StructuredViewerTest extends ViewerTestCase {
         public boolean select(Viewer<TestElement> viewer, Object parent, TestElement element) {
             String label = element.getLabel();
             int count = label.indexOf("-");
-            if (count < 0)
-                return false;
+            if (count < 0) {
+				return false;
+			}
             String number = label.substring(count + 1);
             return ((Integer.parseInt(number) % 2) == 0);
         }
@@ -46,8 +47,9 @@ public abstract class StructuredViewerTest extends ViewerTestCase {
         public boolean select(Viewer<TestElement> viewer, Object parent, TestElement element) {
             String label = element.getLabel();
             int count = label.indexOf("-");
-            if (count < 0)
-                return false;
+            if (count < 0) {
+				return false;
+			}
             String number = label.substring(count + 1);
             return Integer.parseInt(number) == 0;
         }
@@ -315,9 +317,10 @@ public abstract class StructuredViewerTest extends ViewerTestCase {
         TestElement[] newElements = fRootElement
                 .addChildren(TestModelChange.INSERT);
         processEvents();
-        for (int i = 0; i < newElements.length; ++i)
-            assertNotNull("new siblings are visible", fViewer
-                    .testFindItem(newElements[i]));
+        for (TestElement newElement : newElements) {
+			assertNotNull("new siblings are visible", fViewer
+                    .testFindItem(newElement));
+		}
     }
 
     public void testInsertSiblingSelectExpanded() {
@@ -416,8 +419,9 @@ public abstract class StructuredViewerTest extends ViewerTestCase {
 
     public void testRenameWithLabelProvider() {
         if (fViewer instanceof TableViewer
-                || fViewer instanceof TableTreeViewer)
-            return;
+                || fViewer instanceof TableTreeViewer) {
+			return;
+		}
         fViewer.setLabelProvider(new TestLabelProvider());
         TestElement first = fRootElement.getFirstChild();
         first.setLabel("changed name");

@@ -184,7 +184,6 @@ public class TableFontProviderTest extends StructuredViewerTest {
 	 */
 	class FontViewLabelProvider extends TableTestLabelProvider implements
 			IFontProvider<TestElement> {
-
 		@Override
 		public Font getFont(TestElement element) {
 			return font1;

@@ -69,11 +69,7 @@ public class VirtualTableViewerTest extends TableViewerTest {
 		viewer.setUseHashlookup(true);
 		final Table table = viewer.getTable();
 		table.addListener(SWT.SetData, new Listener() {
-			/*
-			 * (non-Javadoc)
-			 *
-			 * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
-			 */
+
 			@Override
 			public void handleEvent(Event event) {
 				setDataCalled = true;

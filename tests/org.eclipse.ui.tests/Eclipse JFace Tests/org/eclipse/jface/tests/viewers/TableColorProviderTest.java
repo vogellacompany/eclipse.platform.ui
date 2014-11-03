@@ -124,7 +124,8 @@ public class TableColorProviderTest extends StructuredViewerTest {
     /* (non-Javadoc)
      * @see org.eclipse.jface.tests.viewers.StructuredViewerTest#tearDown()
      */
-    public void tearDown() {
+    @Override
+	public void tearDown() {
         super.tearDown();
         red.dispose();
         green.dispose();
@@ -133,7 +134,8 @@ public class TableColorProviderTest extends StructuredViewerTest {
     /* (non-Javadoc)
      * @see org.eclipse.jface.tests.viewers.StructuredViewerTest#setUp()
      */
-    public void setUp() {
+    @Override
+	public void setUp() {
         super.setUp();
         red = new Color(Display.getCurrent(), 255, 0, 0);
         green = new Color(Display.getCurrent(), 0, 255, 0);
@@ -147,7 +149,8 @@ public class TableColorProviderTest extends StructuredViewerTest {
         junit.textui.TestRunner.run(TableColorProviderTest.class);
     }
 
-    protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
+    @Override
+	protected StructuredViewer<TestElement,TestElement> createViewer(Composite parent) {
         TableViewer<TestElement,TestElement> viewer = new TableViewer<TestElement,TestElement>(parent);
         viewer.setContentProvider(new TestModelContentProvider());
 
@@ -173,14 +176,16 @@ public class TableColorProviderTest extends StructuredViewerTest {
         return viewer;
     }
 
-    protected int getItemCount() {
+    @Override
+	protected int getItemCount() {
         TestElement first = fRootElement.getFirstChild();
         TableItem ti = (TableItem) fViewer.testFindItem(first);
         Table table = ti.getParent();
         return table.getItemCount();
     }
 
-    protected String getItemText(int at) {
+    @Override
+	protected String getItemText(int at) {
         Table table = (Table) fViewer.getControl();
         return table.getItem(at).getText();
     }
@@ -188,11 +193,13 @@ public class TableColorProviderTest extends StructuredViewerTest {
     class TableColorViewLabelProvider extends TableTestLabelProvider implements
             ITableColorProvider<TestElement> {
 
-        public Image getColumnImage(TestElement obj, int index) {
+        @Override
+		public Image getColumnImage(TestElement obj, int index) {
             return null;
         }
 
-        public Color getForeground(TestElement element, int columnIndex) {
+        @Override
+		public Color getForeground(TestElement element, int columnIndex) {
             switch (columnIndex) {
             case 0:
                 return green;
@@ -202,7 +209,8 @@ public class TableColorProviderTest extends StructuredViewerTest {
             }
         }
 
-        public Color getBackground(TestElement element, int columnIndex) {
+        @Override
+		public Color getBackground(TestElement element, int columnIndex) {
             switch (columnIndex) {
             case 0:
                 return red;
@@ -217,10 +225,12 @@ public class TableColorProviderTest extends StructuredViewerTest {
      * A class to test color providing without coloured columns.
      */
     class ColorViewLabelProvider extends TableTestLabelProvider implements IColorProvider<TestElement>{
+		@Override
 		public Color getBackground(TestElement element) {
 			return red;
 		}
 
+		@Override
 		public Color getForeground(TestElement element) {
 			return green;
 		}

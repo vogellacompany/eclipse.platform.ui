@@ -642,12 +642,14 @@ public class TreeManagerTest extends TestCase {
 		}
 
 		items[3].setCheckState(true);
-		for(int i = 0; i < items.length; i++)
-			assertState(items[i], CHECKSTATE_CHECKED);
+		for (TreeItem item : items) {
+			assertState(item, CHECKSTATE_CHECKED);
+		}
 
 		items[3].setCheckState(false);
-		for(int i = 0; i < items.length; i++)
-			assertState(items[i], CHECKSTATE_UNCHECKED);
+		for (TreeItem item : items) {
+			assertState(item, CHECKSTATE_UNCHECKED);
+		}
 	}
 
 

@@ -154,10 +154,10 @@ public class TestModelContentProvider implements ITestModelListener,
 			throw new IllegalArgumentException("Unknown kind of change");
 		}
 
-		StructuredSelection selection = new StructuredSelection(
+		StructuredSelection<Object> selection = new StructuredSelection<Object>(
 				change.getChildren());
 		if ((change.getModifiers() & TestModelChange.SELECT) != 0) {
-			((StructuredViewer) fViewer).setSelection(selection);
+			((StructuredViewer<?, ?>) fViewer).setSelection(selection);
 		}
 		if ((change.getModifiers() & TestModelChange.REVEAL) != 0) {
 			Object element = selection.getFirstElement();
