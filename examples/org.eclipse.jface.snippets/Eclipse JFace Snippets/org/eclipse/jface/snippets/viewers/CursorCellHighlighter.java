@@ -44,7 +44,7 @@ public class CursorCellHighlighter<E, I> extends FocusCellHighlighter<E, I> {
 	@Override
 	protected void focusCellChanged(ViewerCell<E> cell) {
 		super.focusCellChanged(cell);
-		if (!viewer.isCellEditorActive()) {
+		if (cell != null && !viewer.isCellEditorActive()) {
 			System.err.println("SHOW EDITOR"); //$NON-NLS-1$
 			cursor.setSelection(cell, 0); // TODO THE TIME
 			cursor.setVisible(true);

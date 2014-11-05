@@ -54,7 +54,8 @@ public abstract class FocusCellHighlighter<E,I> {
 	 * extend.
 	 *
 	 * @param cell
-	 *            the new focus cell
+	 *            the new focus cell or <code>null</code> if no new cell
+	 *            receives the focus
 	 * @deprecated use {@link #focusCellChanged(ViewerCell, ViewerCell)} instead
 	 */
 	@Deprecated
